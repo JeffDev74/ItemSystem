@@ -96,7 +96,7 @@ namespace FPS.ItemSystem.CustomProperty
             MemoryStream memoryStream = new MemoryStream();
             using (memoryStream)
             {
-                formatter.Serialize(memoryStream, _fields);
+                formatter.Serialize(memoryStream, Fields);
             }
             return Convert.ToBase64String(memoryStream.ToArray());
         }

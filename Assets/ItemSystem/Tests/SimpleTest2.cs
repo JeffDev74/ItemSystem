@@ -24,6 +24,20 @@ namespace FPS
             set { _items = value; }
         }
 
+        private SQLiteItemDBModel _dBModel;
+        private SQLiteItemDBModel DBModel
+        {
+            get
+            {
+                if(_dBModel == null)
+                {
+                    _dBModel = SQLiteItemDBModel.Instance;
+                }
+
+                return _dBModel;
+            }
+        }
+
         private void Start()
         {
             ResourceItem = new ResourceItem();
@@ -32,7 +46,6 @@ namespace FPS
             (ResourceItem.BaseData as ResourceSData).some = 10;
 
             StringProperty myString = new StringProperty("some_key", "This is a custom string property");
-
 
             ResourceItem.BaseData.Properties.Add(myString);
 
@@ -54,6 +67,7 @@ namespace FPS
             foreach (BaseItem item in Items)
             {
                 Debug.Log("The item name is [" + item.BaseData.ItemName + "]");
+                DBModel.CreateItem(item);
             }
         }
     }
