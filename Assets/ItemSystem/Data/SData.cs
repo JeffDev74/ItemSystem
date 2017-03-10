@@ -1,4 +1,5 @@
 ﻿using FPS.ItemSystem.CustomProperty;
+using UnityEngine;
 
 namespace FPS.ItemSystem
 {
@@ -9,6 +10,20 @@ namespace FPS.ItemSystem
         public string ItemUUID;
         public string ItemName;
         public ItemTypeEnum ItemType;
-        public PropertyManager Properties;
+
+        [SerializeField]
+        public PropertyManager _properties;
+        public PropertyManager Properties
+        {
+            get
+            {
+                if(_properties == null)
+                {
+                    _properties = new PropertyManager();
+                }
+                return _properties;
+            }
+            set { _properties = value; }
+        }
 	}
 }

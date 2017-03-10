@@ -1,4 +1,5 @@
 ﻿using FPS.ItemSystem;
+using FPS.ItemSystem.CustomProperty;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,6 +30,18 @@ namespace FPS
             ResourceItem.BaseData.ItemName = "Wood";
             ResourceItem.BaseData.ItemUUID = System.Guid.NewGuid().ToString();
             (ResourceItem.BaseData as ResourceSData).some = 10;
+
+            StringProperty myString = new StringProperty("some_key", "This is a custom string property");
+
+
+            ResourceItem.BaseData.Properties.Add(myString);
+
+            Debug.Log("The original value is [" + ResourceItem.BaseData.Properties.Get<string>("some_key") + "]");
+
+            ResourceItem.BaseData.Properties.Set("some_key", "This is the updated value of a custom property");
+
+            string propValue = ResourceItem.BaseData.Properties.Get<string>("some_key");
+            Debug.Log("This is the value [" + propValue + "]");
 
             Bullet = new AmmoItem();
             Bullet.BaseData.ItemName = "9mm";
