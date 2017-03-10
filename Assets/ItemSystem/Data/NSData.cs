@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using FPS.InventorySystem.UI;
+using UnityEngine;
 
 namespace FPS.ItemSystem
 {
@@ -6,5 +7,6 @@ namespace FPS.ItemSystem
 	public class NSData
 	{
         public Sprite Icon;
+        public UISlot Slot;
 	}
 }

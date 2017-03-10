@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FPS.InventorySystem;
+using System;
 using UnityEngine;
 
 namespace FPS.ItemSystem
@@ -39,6 +40,13 @@ namespace FPS.ItemSystem
                 return _baseNSData;
             }
             set { _baseNSData = value as AmmoNSData; }
+        }
+
+        private IInventory _inventory;
+        public override IInventory Inventory
+        {
+            get { return _inventory; }
+            set { _inventory = value; }
         }
     }
 }

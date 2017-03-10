@@ -4,6 +4,7 @@ using FPS.EventSystem;
 
 using FPS.UI;
 using FPS.InventorySystem.Events;
+using FPS.ItemSystem;
 
 namespace FPS.InventorySystem.UI
 {
@@ -156,7 +157,7 @@ namespace FPS.InventorySystem.UI
             }
         }
 
-        private void AddItem(IItem item, bool updateUI)
+        private void AddItem(ICoreData item, bool updateUI)
         {
             if (TheInventory == null)
             {

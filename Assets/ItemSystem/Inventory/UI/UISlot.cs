@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using FPS.ItemSystem;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace FPS.InventorySystem.UI
@@ -31,7 +32,7 @@ namespace FPS.InventorySystem.UI
             }
         }
 
-        public void UpdateSlotItem(IItem item, bool updateUI = true)
+        public void UpdateSlotItem(ICoreData item, bool updateUI = true)
         {
             ThisUIItem.Item = item;
             UpdateItemData();
@@ -48,8 +49,8 @@ namespace FPS.InventorySystem.UI
             {
                 // Any variable on the item that 
                 // must be set should be set here.
-                ThisUIItem.Item.Data.SlotId = ID;
-                ThisUIItem.Item.NSData.Slot = this;
+                ThisUIItem.Item.BaseData.InventorySlotId = ID;
+                ThisUIItem.Item.BaseNSData.Slot = this;
             }
             else
             {
@@ -96,8 +97,8 @@ namespace FPS.InventorySystem.UI
 
             if (uiItem.Item != null)
             {
-                uiItem.Item.Data.SlotId = ID;
-                uiItem.Item.NSData.Slot = this;
+                uiItem.Item.BaseData.InventorySlotId = ID;
+                uiItem.Item.BaseNSData.Slot = this;
             }
         }
 

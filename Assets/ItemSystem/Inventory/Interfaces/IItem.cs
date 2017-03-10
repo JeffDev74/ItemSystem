@@ -4,7 +4,7 @@ namespace FPS
 {
     public interface IItem
     {
-        ISData Data { get; set; }
+        ISData SData { get; set; }
         INSData NSData { get; set; }
 
         //IRTData RTData { get; set; }

@@ -2,7 +2,7 @@
 
 namespace FPS.ItemSystem
 {
-	public interface IItem
+	public interface IWItem
 	{
         BaseItem BaseItem { get; set; }
         Transform TheTransform { get; }

@@ -1,4 +1,5 @@
 ﻿using FPS.EventSystem;
+using FPS.ItemSystem;
 
 namespace FPS.InventorySystem.Events
 {
@@ -11,8 +12,8 @@ namespace FPS.InventorySystem.Events
             set { _inventoryUUID = value; }
         }
 
-        private IItem _item;
-        public IItem Item
+        private ICoreData _item;
+        public ICoreData Item
         {
             get { return _item; }
             private set { _item = value; }
@@ -25,7 +26,7 @@ namespace FPS.InventorySystem.Events
             private set { _updateUI = value; }
         }
 
-        public EventUpdateInventoryItem(string inventoryUUID, IItem item, bool updateUI = true)
+        public EventUpdateInventoryItem(string inventoryUUID, ICoreData item, bool updateUI = true)
         {
             this.InventoryUUID = inventoryUUID;
             this.Item = item;

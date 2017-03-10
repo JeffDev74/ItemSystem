@@ -23,14 +23,14 @@ namespace FPS.InventorySystem
             }
         }
 
-        private List<IItem> _internalItems;
-        private List<IItem> InternalItems
+        private List<ICoreData> _internalItems;
+        private List<ICoreData> InternalItems
         {
             get
             {
                 if (_internalItems == null)
                 {
-                    _internalItems = new List<IItem>();
+                    _internalItems = new List<ICoreData>();
                 }
                 return _internalItems;
             }
@@ -57,7 +57,7 @@ namespace FPS.InventorySystem
             set { _inventoryUUID = value; }
         }
 
-        public List<IItem> Items
+        public List<ICoreData> Items
         {
             get { return InternalItems; }
         }
@@ -114,12 +114,12 @@ namespace FPS.InventorySystem
             }
         }
 
-        public IItem GetItem(string uniqueUUID)
+        public ICoreData GetItem(string uniqueUUID)
         {
             for (int i = 0; i < InternalItems.Count; i++)
             {
-                IItem resultItem = InternalItems[i];
-                if (resultItem.Data.ItemUUID == uniqueUUID)
+                ICoreData resultItem = InternalItems[i];
+                if (resultItem.BaseData.ItemUUID == uniqueUUID)
                 {
                     return resultItem;
                 }
@@ -128,9 +128,9 @@ namespace FPS.InventorySystem
             return null;
         }
 
-        public void AddItem(IItem item, bool updateUI)
+        public void AddItem(ICoreData item, bool updateUI)
         {
-            if (CheckIfExists(item.Data.ItemUUID) == false) // We dont have the item when false
+            if (CheckIfExists(item.BaseData.ItemUUID) == false) // We dont have the item when false
             {
                 if (CanAddItem)
                 {
@@ -145,13 +145,13 @@ namespace FPS.InventorySystem
             }
             else
             {
-                Debug.LogError("The item with the unique uuid of [" + item.Data.ItemUUID + "] is already in the inventory.");
+                Debug.LogError("The item with the unique uuid of [" + item.BaseData.ItemUUID + "] is already in the inventory.");
             }
         }
 
-        public void RemoveItem(IItem item, bool updateUI)
+        public void RemoveItem(ICoreData item, bool updateUI)
         {
-            RemoveItem(item.Data.ItemUUID, updateUI);
+            RemoveItem(item.BaseData.ItemUUID, updateUI);
         }
 
         public void RemoveItem(string uniqueUUID, bool updateUI)
@@ -163,9 +163,9 @@ namespace FPS.InventorySystem
             #endregion Linq Version
 
             #region Foreach Version
-            foreach (IItem item in InternalItems.ToArray())
+            foreach (ICoreData item in InternalItems.ToArray())
             {
-                if (item.Data.ItemUUID == uniqueUUID)
+                if (item.BaseData.ItemUUID == uniqueUUID)
                 {
                     InternalItems.Remove(item);
                     EventSystem.EventMessenger.Instance.Raise(new Events.EventRemoveItemFromInventory(InventoryUUID, item));
@@ -174,11 +174,11 @@ namespace FPS.InventorySystem
             #endregion Foreach Version
         }
 
-        public void UpdateItem(string uniqueUUID, IItem item, bool updateUI)
+        public void UpdateItem(string uniqueUUID, ICoreData item, bool updateUI)
         {
             for (int i = 0; i < InternalItems.Count; i++)
             {
-                if (InternalItems[i].Data.ItemUUID == uniqueUUID)
+                if (InternalItems[i].BaseData.ItemUUID == uniqueUUID)
                 {
                     InternalItems[i] = item;
                     EventSystem.EventMessenger.Instance.Raise(new Events.EventUpdateInventoryItem(InventoryUUID, item));
@@ -196,7 +196,7 @@ namespace FPS.InventorySystem
         {
             for (int i = 0; i < InternalItems.Count; i++)
             {
-                if (InternalItems[i].Data.ItemUUID == uniqueUUID)
+                if (InternalItems[i].BaseData.ItemUUID == uniqueUUID)
                 {
                     return true;
                 }

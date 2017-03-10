@@ -1,4 +1,5 @@
-﻿using FPS.ItemSystem.CustomProperty;
+﻿using FPS.InventorySystem;
+using FPS.ItemSystem.CustomProperty;
 using UnityEngine;
 
 namespace FPS.ItemSystem
@@ -10,7 +11,14 @@ namespace FPS.ItemSystem
         public string ItemUUID;
         public int InventorySlotId;
         public string ItemName;
+        public string Description;
         public ItemTypeEnum ItemType;
+
+        //IInventoryData
+        public string InventoryUUID;
+
+        // IStackeableData
+        public int Quantity;
 
         [SerializeField]
         public PropertyManager _properties;

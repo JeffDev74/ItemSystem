@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using FPS.ItemSystem;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -39,8 +40,8 @@ namespace FPS.InventorySystem.UI
             }
         }
 
-        protected IItem _item;
-        public IItem Item
+        protected ICoreData _item;
+        public ICoreData Item
         {
             get { return _item; }
             set
@@ -203,7 +204,7 @@ namespace FPS.InventorySystem.UI
             }
             else
             {
-                Icon.sprite = Item.NSData.Icon;
+                Icon.sprite = Item.BaseNSData.Icon;
             }
         }
 
@@ -216,7 +217,7 @@ namespace FPS.InventorySystem.UI
             }
             else
             {
-                QuantityText.text = Item.Data.Quantity.ToString();
+                QuantityText.text = Item.BaseData.Quantity.ToString();
                 QuantityTextGO.SetActive(true);
             }
         }

@@ -1,10 +1,11 @@
 ﻿using System;
+using FPS.InventorySystem;
 using UnityEngine;
 
 namespace FPS.ItemSystem
 {
     [System.Serializable]
-    public class ResourceItem : BaseItem
+    public class ResourceItem : BaseItem//, IItem
     {
         public ResourceItem()
         {
@@ -39,6 +40,13 @@ namespace FPS.ItemSystem
                 return _baseNSData;
             }
             set { _baseNSData = value as ResourceNSData; }
+        }
+
+        private IInventory _inventory;
+        public override IInventory Inventory
+        {
+            get { return _inventory; }
+            set { _inventory = value; }
         }
     }
 }

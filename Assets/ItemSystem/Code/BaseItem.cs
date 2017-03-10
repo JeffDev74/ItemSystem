@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FPS.InventorySystem;
+using System;
 using UnityEngine;
 
 namespace FPS.ItemSystem
@@ -9,5 +10,7 @@ namespace FPS.ItemSystem
         public abstract SData BaseData { get; set; }
 
         public abstract NSData BaseNSData { get; set; }
+
+        public abstract IInventory Inventory { get; set; }
     }
 }
