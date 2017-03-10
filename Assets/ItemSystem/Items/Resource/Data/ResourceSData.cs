@@ -8,8 +8,6 @@ namespace FPS.ItemSystem
     [System.Serializable]
 	public class ResourceSData : SData, ISerializeData
 	{
-        public int some;
-
         #region ISerializeData Implementation
         public string SerializeItemData()
         {

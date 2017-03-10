@@ -55,7 +55,6 @@ namespace FPS
             ResourceItem = new ResourceItem();
             ResourceItem.BaseData.ItemName = "Wood";
             ResourceItem.BaseData.ItemUUID = System.Guid.NewGuid().ToString();
-            (ResourceItem.BaseData as ResourceSData).some = 10;
 
             StringProperty myString = new StringProperty("some_key", "This is a custom string property");
 

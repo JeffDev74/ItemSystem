@@ -1,10 +1,10 @@
-﻿using UnityEngine.UI;
+﻿using UnityEngine;
 
 namespace FPS.ItemSystem
 {
     [System.Serializable]
 	public class NSData
 	{
-        public Image Icon;
+        public Sprite Icon;
 	}
 }
