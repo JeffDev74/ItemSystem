@@ -40,6 +40,18 @@ namespace FPS
 
         private void Start()
         {
+            BaseItem[] items = DBModel.GetAllItems();
+
+            Debug.Log(items.Length);
+
+            foreach (var item in items)
+            {
+                Debug.Log("Item [" + item.BaseData.ItemName + "] was loaded.");
+            }
+        }
+
+        public void TestCreateItemsAndSaveToSqlite()
+        {
             ResourceItem = new ResourceItem();
             ResourceItem.BaseData.ItemName = "Wood";
             ResourceItem.BaseData.ItemUUID = System.Guid.NewGuid().ToString();
