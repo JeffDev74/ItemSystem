@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using FPS.ItemSystem.CustomProperty;
 
 namespace FPS.ItemSystem
 {
@@ -9,5 +9,6 @@ namespace FPS.ItemSystem
         public string ItemUUID;
         public string ItemName;
         public ItemTypeEnum ItemType;
+        public PropertyManager Properties;
 	}
 }
