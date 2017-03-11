@@ -31,13 +31,13 @@ namespace FPS
 
         void Start()
         {
-            DB_PATH = "StreamingAssets/Databases/";
+            DB_PATH = "StreamingAssets/JeffDev#ItemSystem/Databases/";
             DB_NAME = "Items.bytes";
         }
 
         public string GetDBPath()
         {
-            return "URI=file:" + Application.dataPath + "/StreamingAssets/Databases/Items.bytes";
+            return "URI=file:" + Application.dataPath + "/StreamingAssets/JeffDev#ItemSystem/Databases/Items.bytes";
         }
 
         public void CreateItem(ICoreData ItemData)

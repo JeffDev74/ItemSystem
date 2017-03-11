@@ -40,6 +40,8 @@ namespace FPS
 
         private void Start()
         {
+            //TestCreateItemsAndSaveToSqlite();
+
             BaseItem[] items = DBModel.GetAllItems();
 
             Debug.Log(items.Length);

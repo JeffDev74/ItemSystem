@@ -61,7 +61,7 @@ namespace ItemSystem
 
     public class GenerateGuids : UnityEditor.ScriptableWizard
     {
-        [UnityEditor.MenuItem("JEFF/Helpers/GUID/Generate Guids")]
+        [UnityEditor.MenuItem("JEFFDEV/Helpers/GUID/Generate Guids")]
         static void Generate()
         {
             var objList = GameObject.FindObjectsOfType(typeof(GameObject));
