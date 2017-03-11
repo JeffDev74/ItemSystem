@@ -151,7 +151,7 @@ namespace FPS.InventorySystem
                 if (CanAddItem)
                 {
                     InternalItems.Add(item);
-                    EventSystem.EventMessenger.Instance.Raise(new Events.EventAddItemToInventory(InventoryUUID, item, updateUI));
+                    EventSystem.EventMessenger.Instance.Raise(new Events.EventItemWasAddedToInventory(InventoryUUID, item, updateUI));
                     
                 }
                 else

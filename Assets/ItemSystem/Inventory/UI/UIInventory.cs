@@ -111,12 +111,12 @@ namespace FPS.InventorySystem.UI
 
         protected void OnEnable()
         {
-            EventMessenger.Instance.AddListner<EventAddItemToInventory>(OnItemAddedToInventory);
+            EventMessenger.Instance.AddListner<EventItemWasAddedToInventory>(OnItemAddedToInventory);
         }
 
         protected void OnDisable()
         {
-            EventMessenger.Instance.RemoveListner<EventAddItemToInventory>(OnItemAddedToInventory);
+            EventMessenger.Instance.RemoveListner<EventItemWasAddedToInventory>(OnItemAddedToInventory);
         }
 
         protected void Start()
@@ -136,7 +136,7 @@ namespace FPS.InventorySystem.UI
             }
         }
 
-        private void OnItemAddedToInventory(EventAddItemToInventory e)
+        private void OnItemAddedToInventory(EventItemWasAddedToInventory e)
         {
             if (e.UpdateUI == false)
             {
@@ -144,14 +144,9 @@ namespace FPS.InventorySystem.UI
                 return;
             }
 
-            if (InventoryUUID == e.InventoryUUID)
+            if (InventoryUUID == e.InventoryUUID && e.UpdateUI)
             {
-                Debug.Log("Received item to add to inventory ", gameObject);
                 AddItem(e.Item, e.UpdateUI);
-            }
-            else
-            {
-                Debug.Log("The inventory id does not match", gameObject);
             }
         }
 
