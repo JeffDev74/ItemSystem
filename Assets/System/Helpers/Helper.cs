@@ -41,5 +41,16 @@ namespace FPS
                 throw new System.Exception("Failed to decode item data.");
             }
         }
+
+        public class ObjectTags
+        {
+            public static string UIPanel = "UIPanel";
+        }
+
+        public class PanelNames
+        {
+            public static string MainInventory = "MainInventory";
+            public static string ActionBarInventory = "ActionBarInventory";
+        }
     }
 }
