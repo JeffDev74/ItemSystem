@@ -70,8 +70,8 @@ namespace FPS
 
                     sql = string.Format("INSERT INTO " + tableName + " (item_uuid, type, data, properties)" +
                     " VALUES ( \"{0}\", \"{1}\", \"{2}\", \"{3}\");",
-                    ItemData.BaseData.ItemUUID,
-                    ItemData.BaseData.ItemType,
+                    ItemData.BaseData.UniqueUUID,
+                    ItemData.BaseData.Type,
                     itemSerializeDataInterface.SerializeItemData(),
                     serializedProperties
                     );
@@ -80,7 +80,7 @@ namespace FPS
                 }
                 else
                 {
-                    Debug.LogError("External DB item [" + ItemData.BaseData.ItemName + "] does not implement ISerializeData interface.");
+                    Debug.LogError("External DB item [" + ItemData.BaseData.Name + "] does not implement ISerializeData interface.");
                 }
 
             }

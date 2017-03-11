@@ -75,7 +75,11 @@ namespace FPS.InventorySystem
 
         public IInventory GetInventoryByUUID(string inventoryUniqueUUID)
         {
-            if (string.IsNullOrEmpty(inventoryUniqueUUID)) return null;
+            if (string.IsNullOrEmpty(inventoryUniqueUUID))
+            {
+                Debug.LogWarning("Inventory unique UUID is empty. Returning null.", transform);
+                return null;
+            }
 
             for (int i = 0; i < Inventories.Count; i++)
             {
@@ -84,6 +88,8 @@ namespace FPS.InventorySystem
                     return Inventories[i];
                 }
             }
+
+            Debug.LogWarning("The inventory with unique uuid [" + inventoryUniqueUUID + "] was not found.", transform);
 
             return null;
         }

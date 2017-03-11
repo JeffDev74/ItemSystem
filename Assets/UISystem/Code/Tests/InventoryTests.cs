@@ -38,35 +38,35 @@ namespace FPS
                 Debug.Log("Start Testing inventory UUID is [" + TheInventory.InventoryUUID + "]");
 
                 // Testing adding item to the inventory
-                ResourceItem weapon = new ResourceItem();
-                weapon.BaseData.ID = 1;
-                weapon.BaseData.ItemUUID = ItemA_ID;
-                weapon.BaseData.ItemName = "AK47";
-                weapon.BaseData.Description = "Weapon mid-range";
+                ResourceItem ritem = new ResourceItem();
+                ritem.BaseData.ID = 1;
+                ritem.BaseData.UniqueUUID = ItemA_ID;
+                ritem.BaseData.Name = "AK47";
+                //ritem.BaseData.Description = "Weapon mid-range";
 
-                Debug.Log(weapon.BaseData.ItemName);
+                Debug.Log(ritem.BaseData.Name);
 
-                TestAddItemToInventory(weapon);
+                TestAddItemToInventory(ritem);
 
                 // Get specific item
-                TestGetSpecificItem(weapon);
+                TestGetSpecificItem(ritem);
 
                 // Testing updating item on inventory
-                ResourceItem weapon2 = new ResourceItem();
-                weapon2.BaseData.ID = 1;
-                weapon2.BaseData.ItemUUID = ItemB_ID;
-                weapon2.BaseData.ItemName = "AK47";
-                weapon2.BaseData.Description = "Weapon mid-range altered.";
+                ResourceItem ritem2 = new ResourceItem();
+                ritem2.BaseData.ID = 1;
+                ritem2.BaseData.UniqueUUID = ItemB_ID;
+                ritem2.BaseData.Name = "AK47";
+                ritem2.BaseData.Description = "Weapon mid-range altered.";
 
-                TestUpdateItemInTheInventory(weapon2);
+                TestUpdateItemInTheInventory(ritem2);
 
                 // Test remove item
-                TestRemoveItemFromInventory(weapon2);
+                TestRemoveItemFromInventory(ritem2);
                 // Count all items
-                TestCountAllItemsFromInventory(weapon, weapon2);
+                TestCountAllItemsFromInventory(ritem, ritem2);
 
                 // Get all items
-                TestGetAllItemsFromInventory(weapon, weapon2);
+                TestGetAllItemsFromInventory(ritem, ritem2);
 
             }
             #endregion INVENTORY TESTS
@@ -96,27 +96,27 @@ namespace FPS
             TheInventory.AddItem(testItem, false);
 
             // Check item name and unique uuid
-            ICoreData tmpBaseItem = TheInventory.GetItem(testItem.BaseData.ItemUUID);
+            ICoreData tmpBaseItem = TheInventory.GetItem(testItem.BaseData.UniqueUUID);
             if (tmpBaseItem == null)
             {
                 Debug.LogError("FAILED [TestAddItemToInventory]. We should have the item in the inventory.");
             }
             else
             {
-                Debug.Log("PASSED [TestAddItemToInventory]. Weapon description [" + tmpBaseItem.BaseData.Description + "] uniqueUUID [" + tmpBaseItem.BaseData.ItemUUID + "]");
+                Debug.Log("PASSED [TestAddItemToInventory]. Weapon description [" + tmpBaseItem.BaseData.Description + "] uniqueUUID [" + tmpBaseItem.BaseData.UniqueUUID + "]");
             }
         }
 
         private void TestGetSpecificItem(ICoreData testItem)
         {
-            ICoreData tmpBaseItem = TheInventory.GetItem(testItem.BaseData.ItemUUID);
+            ICoreData tmpBaseItem = TheInventory.GetItem(testItem.BaseData.UniqueUUID);
             if (tmpBaseItem == null)
             {
                 Debug.LogError("FAILED [TestGetSpecificItem]. We should have the item in the inventory.");
             }
             else
             {
-                Debug.Log("PASSED [TestGetSpecificItem]. Weapon description [" + tmpBaseItem.BaseData.Description + "] uniqueUUID [" + tmpBaseItem.BaseData.ItemUUID + "]");
+                Debug.Log("PASSED [TestGetSpecificItem]. Weapon description [" + tmpBaseItem.BaseData.Description + "] uniqueUUID [" + tmpBaseItem.BaseData.UniqueUUID + "]");
             }
         }
 
@@ -131,17 +131,17 @@ namespace FPS
             }
             else
             {
-                Debug.Log("PASSED [TestUpdateItemInTheInventory]. Weapon description [" + tmpBaseItem.BaseData.Description + "] uniqueUUID [" + tmpBaseItem.BaseData.ItemUUID + "]");
+                Debug.Log("PASSED [TestUpdateItemInTheInventory]. Weapon description [" + tmpBaseItem.BaseData.Description + "] uniqueUUID [" + tmpBaseItem.BaseData.UniqueUUID + "]");
             }
         }
 
         private void TestRemoveItemFromInventory(ICoreData testItem)
         {
             TheInventory.RemoveItem(testItem, false);
-            ICoreData tmpBaseItem = TheInventory.GetItem(testItem.BaseData.ItemUUID);
+            ICoreData tmpBaseItem = TheInventory.GetItem(testItem.BaseData.UniqueUUID);
             if (tmpBaseItem == null)
             {
-                Debug.Log("PASSED [TestRemoveItemFromInventory]. Weapon description [" + testItem.BaseData.Description + "] uniqueUUID [" + testItem.BaseData.ItemUUID + "]");
+                Debug.Log("PASSED [TestRemoveItemFromInventory]. Weapon description [" + testItem.BaseData.Description + "] uniqueUUID [" + testItem.BaseData.UniqueUUID + "]");
             }
             else
             {

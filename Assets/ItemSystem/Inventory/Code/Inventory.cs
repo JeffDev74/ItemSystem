@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using FPS.EventSystem;
 using FPS.InventorySystem.Events;
 using FPS.ItemSystem;
+using ItemSystem;
 
 namespace FPS.InventorySystem
 {
+    [RequireComponent(typeof(GUID))]
     public class Inventory : MonoBehaviour, IInventory
     {
         public int InventoryMaxItems = 10;
@@ -40,17 +42,31 @@ namespace FPS.InventorySystem
             }
         }
 
-        //[SerializeField]
-        public string _inventoryUUID;
+        [SerializeField]
+        private GUID _uniqueGUID;
+        public GUID UniqueGuid
+        {
+            get
+            {
+                if(_uniqueGUID == null)
+                {
+                    Debug.LogError("GUID component is missing for inventory.", TheTransform);
+                    throw new System.Exception("GUID component is missing for inventory.");
+                }
+                return _uniqueGUID;
+            }
+            set { _uniqueGUID = value; }
+        }
+
+        [SerializeField]
+        private string _inventoryUUID;
         public string InventoryUUID
         {
             get
             {
                 if (string.IsNullOrEmpty(_inventoryUUID))
                 {
-                    // Only used for testing
-                    _inventoryUUID = "00071875-d6be-43c2-a254-d74f0893d000";
-                    //_inventoryUUID = System.Guid.NewGuid().ToString();
+                    _inventoryUUID = UniqueGuid.Value;
                 }
                 return _inventoryUUID;
             }
@@ -119,7 +135,7 @@ namespace FPS.InventorySystem
             for (int i = 0; i < InternalItems.Count; i++)
             {
                 ICoreData resultItem = InternalItems[i];
-                if (resultItem.BaseData.ItemUUID == uniqueUUID)
+                if (resultItem.BaseData.UniqueUUID == uniqueUUID)
                 {
                     return resultItem;
                 }
@@ -130,7 +146,7 @@ namespace FPS.InventorySystem
 
         public void AddItem(ICoreData item, bool updateUI)
         {
-            if (CheckIfExists(item.BaseData.ItemUUID) == false) // We dont have the item when false
+            if (CheckIfExists(item.BaseData.UniqueUUID) == false) // We dont have the item when false
             {
                 if (CanAddItem)
                 {
@@ -145,13 +161,13 @@ namespace FPS.InventorySystem
             }
             else
             {
-                Debug.LogError("The item with the unique uuid of [" + item.BaseData.ItemUUID + "] is already in the inventory.");
+                Debug.LogError("The item with the unique uuid of [" + item.BaseData.UniqueUUID + "] is already in the inventory.");
             }
         }
 
         public void RemoveItem(ICoreData item, bool updateUI)
         {
-            RemoveItem(item.BaseData.ItemUUID, updateUI);
+            RemoveItem(item.BaseData.UniqueUUID, updateUI);
         }
 
         public void RemoveItem(string uniqueUUID, bool updateUI)
@@ -165,7 +181,7 @@ namespace FPS.InventorySystem
             #region Foreach Version
             foreach (ICoreData item in InternalItems.ToArray())
             {
-                if (item.BaseData.ItemUUID == uniqueUUID)
+                if (item.BaseData.UniqueUUID == uniqueUUID)
                 {
                     InternalItems.Remove(item);
                     EventSystem.EventMessenger.Instance.Raise(new Events.EventRemoveItemFromInventory(InventoryUUID, item));
@@ -178,7 +194,7 @@ namespace FPS.InventorySystem
         {
             for (int i = 0; i < InternalItems.Count; i++)
             {
-                if (InternalItems[i].BaseData.ItemUUID == uniqueUUID)
+                if (InternalItems[i].BaseData.UniqueUUID == uniqueUUID)
                 {
                     InternalItems[i] = item;
                     EventSystem.EventMessenger.Instance.Raise(new Events.EventUpdateInventoryItem(InventoryUUID, item));
@@ -196,7 +212,7 @@ namespace FPS.InventorySystem
         {
             for (int i = 0; i < InternalItems.Count; i++)
             {
-                if (InternalItems[i].BaseData.ItemUUID == uniqueUUID)
+                if (InternalItems[i].BaseData.UniqueUUID == uniqueUUID)
                 {
                     return true;
                 }

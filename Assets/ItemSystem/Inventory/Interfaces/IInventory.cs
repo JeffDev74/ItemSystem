@@ -1,4 +1,5 @@
 ﻿using FPS.ItemSystem;
+using ItemSystem;
 using System.Collections.Generic;
 using UnityEngine;
 namespace FPS.InventorySystem
@@ -6,7 +7,8 @@ namespace FPS.InventorySystem
     public interface IInventory
     {
         Transform TheTransform { get; }
-        string InventoryUUID { get; set; }
+        GUID UniqueGuid { get; }
+        string InventoryUUID { get; }
         List<ICoreData> Items { get; }
         int ItemsCount { get; }
         ICoreData GetItem(string uniqueUUID);

@@ -24,15 +24,15 @@ namespace FPS.ItemSystem
 
         public BaseItem FactoryCloneItemFromData()
         {
-            string orgitemName = ItemName;
-            string originalUUID = ItemUUID;
-            int originalSlotID = InventorySlotId;
+            string orgitemName = Name;
+            string originalUUID = UniqueUUID;
+            int originalSlotID = SlotID;
 
             AmmoItem factoredItem = new AmmoItem();
 
-            factoredItem.BaseData.ItemName = orgitemName;
-            factoredItem.BaseData.ItemUUID = originalUUID;
-            factoredItem.BaseData.InventorySlotId = originalSlotID;
+            factoredItem.BaseData.Name = orgitemName;
+            factoredItem.BaseData.UniqueUUID = originalUUID;
+            factoredItem.BaseData.SlotID = originalSlotID;
             
             return factoredItem;
         }

@@ -1,7 +1,9 @@
 ﻿using FPS.EventSystem;
 using FPS.InventorySystem;
 using FPS.InventorySystem.Events;
+using FPS.InventorySystem.UI;
 using FPS.ItemSystem;
+using FPS.UI;
 using UnityEngine;
 
 
@@ -9,9 +11,7 @@ namespace FPS
 {
     public class AddItemBtn : MonoBehaviour
     {
-        private string ItemA_ID = "9e371875-d6be-43c2-a254-d74f0893df59";
-
-        public string inventory_uuid = ""; //"00071875-d6be-43c2-a254-d74f0893d000";
+        public string inventory_uuid = "7ffec2c5-dfbd-4e78-b2db-33e95def41bb";
 
         public Sprite itemIcon;
 
@@ -30,6 +30,9 @@ namespace FPS
 
         public void AddItem()
         {
+            IUIPanel panel = UIManager.Instance.MainInventoryUIPanel;
+            UIInventory uiInventory = panel.TheTransform.GetComponent<UIInventory>();
+            uiInventory.InventoryUUID = Inventory.InventoryUUID;
             EventMessenger.Instance.Raise(new EventAddItemToInventory(Inventory.InventoryUUID, FactoryItem(), true));
         }
 
@@ -38,17 +41,14 @@ namespace FPS
             // Resource item
             ICoreData testItem = new ResourceItem();
             testItem.BaseData.ID = 1;
-            testItem.BaseData.ItemUUID = System.Guid.NewGuid().ToString();// ItemA_ID;
-            testItem.BaseData.ItemName = "AK47";
+            testItem.BaseData.UniqueUUID = System.Guid.NewGuid().ToString();
+            testItem.BaseData.Name = "Wood";
             testItem.BaseData.Quantity = 777;
-            testItem.BaseData.Description = "Weapon mid-range";
+            testItem.BaseData.Description = "Wood Resource";
             testItem.BaseData.InventoryUUID = Inventory.InventoryUUID;
             testItem.Inventory = Inventory;
-
             testItem.BaseNSData = new ResourceNSData();
-
             testItem.BaseNSData.Icon = itemIcon;
-
             return testItem as ICoreData;
         }
     }

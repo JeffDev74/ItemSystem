@@ -4,9 +4,20 @@ using UnityEngine;
 namespace FPS.ItemSystem
 {
     [System.Serializable]
-	public class NSData
+	public class NSData : INSData
 	{
-        public Sprite Icon;
-        public UISlot Slot;
+        private Sprite _icon;
+        public Sprite Icon
+        {
+            get { return _icon; }
+            set { _icon = value; }
+        }
+
+        private UISlot _slot;
+        public UISlot Slot
+        {
+            get { return _slot; }
+            set { _slot = value; }
+        }
 	}
 }

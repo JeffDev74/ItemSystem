@@ -49,7 +49,7 @@ namespace FPS.InventorySystem.UI
             {
                 // Any variable on the item that 
                 // must be set should be set here.
-                ThisUIItem.Item.BaseData.InventorySlotId = ID;
+                ThisUIItem.Item.BaseData.SlotID = ID;
                 ThisUIItem.Item.BaseNSData.Slot = this;
             }
             else
@@ -97,7 +97,7 @@ namespace FPS.InventorySystem.UI
 
             if (uiItem.Item != null)
             {
-                uiItem.Item.BaseData.InventorySlotId = ID;
+                uiItem.Item.BaseData.SlotID = ID;
                 uiItem.Item.BaseNSData.Slot = this;
             }
         }

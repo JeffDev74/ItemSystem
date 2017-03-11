@@ -7,9 +7,9 @@ namespace FPS.ItemSystem
     [System.Serializable]
     public abstract class BaseItem : ICoreData
     {
-        public abstract SData BaseData { get; set; }
+        public abstract ISData BaseData { get; set; }
 
-        public abstract NSData BaseNSData { get; set; }
+        public abstract INSData BaseNSData { get; set; }
 
         public abstract IInventory Inventory { get; set; }
     }

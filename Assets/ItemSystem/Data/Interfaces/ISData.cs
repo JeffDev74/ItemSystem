@@ -7,12 +7,16 @@ namespace FPS
     public interface ISData
     {
         int ID { get; set; }
-        string ItemUUID { get; set; }
-        string ItemName { get; set; }
-        ItemTypeEnum ItemType { get; set; }
+        string UniqueUUID { get; set; }
+        string Name { get; set; }
+
+        string Description { get; set; }
+
+        ItemTypeEnum Type { get; set; }
 
         // IInventoryData
-        int SlotId { get; set; }
+        string InventoryUUID { get; set; }
+        int SlotID { get; set; }
 
         // ICustomPropertyData
         PropertyManager Properties { get; set; }

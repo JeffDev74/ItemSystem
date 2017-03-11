@@ -8,7 +8,7 @@ namespace FPS
 {
     public class UITests : MonoBehaviour
     {
-        private string ItemA_ID = "9e371875-d6be-43c2-a254-d74f0893df59";
+        //private string ItemA_ID = "9e371875-d6be-43c2-a254-d74f0893df59";
 
         private IInventory _inventory;
         public IInventory Inventory
@@ -26,14 +26,12 @@ namespace FPS
         private void Start()
         {
 
-            ResourceItem weapon = new ResourceItem();
-            weapon.BaseData.ID = 1;
-            weapon.BaseData.ItemUUID = ItemA_ID;
-            weapon.BaseData.ItemName = "AK47";
-            weapon.BaseData.Description = "Weapon mid-range";
-
-            ICoreData item = weapon as ICoreData;
-
+            //ResourceItem ritem = new ResourceItem();
+            //ritem.BaseData.ID = 1;
+            //ritem.BaseData.ItemUUID = ItemA_ID;
+            //ritem.BaseData.ItemName = "AK47";
+            //ritem.BaseData.Description = "Weapon mid-range";
+            //ICoreData item = ritem as ICoreData;
             // Debug.Log("I have [" + Inventory.ItemsCount + "] items.");
             //// The event was changed and we should no be passing the inventory interface anymore
             //// only the inventory uuid

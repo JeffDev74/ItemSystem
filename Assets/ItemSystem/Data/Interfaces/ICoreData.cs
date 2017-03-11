@@ -1,12 +1,11 @@
 ﻿using FPS.InventorySystem;
-using UnityEngine;
 
 namespace FPS.ItemSystem
 {
 	public interface ICoreData
 	{
-        SData BaseData { get; set; }
-        NSData BaseNSData { get; set; }
+        ISData BaseData { get; set; }
+        INSData BaseNSData { get; set; }
 
         IInventory Inventory { get; set; }
     }

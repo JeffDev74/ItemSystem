@@ -46,15 +46,15 @@ namespace FPS
 
             foreach (var item in items)
             {
-                Debug.Log("Item [" + item.BaseData.ItemName + "] was loaded.");
+                Debug.Log("Item [" + item.BaseData.Name + "] was loaded.");
             }
         }
 
         public void TestCreateItemsAndSaveToSqlite()
         {
             ResourceItem = new ResourceItem();
-            ResourceItem.BaseData.ItemName = "Wood";
-            ResourceItem.BaseData.ItemUUID = System.Guid.NewGuid().ToString();
+            ResourceItem.BaseData.Name = "Wood";
+            ResourceItem.BaseData.UniqueUUID = System.Guid.NewGuid().ToString();
 
             StringProperty myString = new StringProperty("some_key", "This is a custom string property");
 
@@ -68,8 +68,8 @@ namespace FPS
             Debug.Log("This is the value [" + propValue + "]");
 
             Bullet = new AmmoItem();
-            Bullet.BaseData.ItemName = "9mm";
-            Bullet.BaseData.ItemUUID = System.Guid.NewGuid().ToString();
+            Bullet.BaseData.Name = "9mm";
+            Bullet.BaseData.UniqueUUID = System.Guid.NewGuid().ToString();
             (Bullet.BaseData as AmmoSData).TravelDistance = 100;
 
             Items.Add(Bullet);
@@ -77,7 +77,7 @@ namespace FPS
 
             foreach (BaseItem item in Items)
             {
-                Debug.Log("The item name is [" + item.BaseData.ItemName + "]");
+                Debug.Log("The item name is [" + item.BaseData.Name + "]");
                 DBModel.CreateItem(item);
             }
         }

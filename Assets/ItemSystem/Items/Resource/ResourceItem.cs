@@ -9,12 +9,12 @@ namespace FPS.ItemSystem
     {
         public ResourceItem()
         {
-            BaseData.ItemType = ItemTypeEnum.Resource;
+            BaseData.Type = ItemTypeEnum.Resource;
         }
 
         [SerializeField]
         private ResourceSData _baseData;
-        public override SData BaseData
+        public override ISData BaseData
         {
             get
             {
@@ -29,7 +29,7 @@ namespace FPS.ItemSystem
 
         [SerializeField]
         private ResourceNSData _baseNSData;
-        public override NSData BaseNSData
+        public override INSData BaseNSData
         {
             get
             {

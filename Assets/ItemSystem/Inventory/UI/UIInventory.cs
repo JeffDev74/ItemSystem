@@ -11,19 +11,20 @@ namespace FPS.InventorySystem.UI
     [RequireComponent(typeof(CanvasGroup))]
     public class UIInventory : MonoBehaviour, IUIPanel
     {
-        private int _id;
+        private int _id = -1;
         public int ID
         {
             get { return _id; }
         }
 
-        private bool _isActive;
+        private bool _isActive = false;
         public bool IsActive
         {
             get { return _isActive; }
         }
 
-        private string _panelName;
+        [SerializeField]
+        private string _panelName = "Unnamed";
         public string PanelName
         {
             get { return _panelName; }
@@ -61,9 +62,6 @@ namespace FPS.InventorySystem.UI
                 return _theCanvasGroup;
             }
         }
-        // slotscontainer
-        // inventory
-        //
 
         [SerializeField]
         private UISlotsContainer _theSlotsContainer;
