@@ -117,6 +117,7 @@ namespace FPS.InventorySystem
 
         private void OnAddItemEvent(EventAddItemToInventory e)
         {
+            Debug.Log("Received event to add item to inventory [" + e.InventoryUUID + "] My ID is [" + InventoryUUID + "]");
             if (e.InventoryUUID == InventoryUUID)
             {
                 if (e.Item == null)

@@ -35,7 +35,7 @@ namespace FPS.InventorySystem
 
         [SerializeField]
         private Inventory _mainInventory;
-        private IInventory MainInventory
+        public IInventory MainInventory
         {
             get { return _mainInventory as IInventory; }
             set { _mainInventory = value as Inventory; }
@@ -43,7 +43,7 @@ namespace FPS.InventorySystem
 
         [SerializeField]
         private Inventory _actionBarInventory;
-        private IInventory ActionBarInventory
+        public IInventory ActionBarInventory
         {
             get { return _actionBarInventory as IInventory; }
             set { _actionBarInventory = value as Inventory; }
@@ -52,9 +52,6 @@ namespace FPS.InventorySystem
         private void Awake()
         {
             Inventories.Clear();
-        }
-        private void Start()
-        {
             AddInventory(MainInventory);
             AddInventory(ActionBarInventory);
         }

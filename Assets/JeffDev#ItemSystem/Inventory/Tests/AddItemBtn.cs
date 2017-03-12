@@ -11,7 +11,7 @@ namespace FPS
 {
     public class AddItemBtn : MonoBehaviour
     {
-        public string inventory_uuid = "7ffec2c5-dfbd-4e78-b2db-33e95def41bb";
+        public string inventory_uuid = "7df22de7-d039-4bcc-8805-efebc2f596fa";// "7ffec2c5-dfbd-4e78-b2db-33e95def41bb";
 
         public Sprite itemIcon;
 

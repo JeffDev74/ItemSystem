@@ -1,4 +1,5 @@
-﻿using FPS.InventorySystem.UI;
+﻿using FPS.InventorySystem;
+using FPS.InventorySystem.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -60,6 +61,15 @@ namespace FPS.UI
                     AddPanel(p);
                 }
             }
+        }
+
+        private void Start()
+        {
+            UIInventory uiInventory = MainInventoryUIPanel.TheTransform.GetComponent<UIInventory>();
+            uiInventory.InventoryUUID = InventoryManager.Instance.MainInventory.InventoryUUID;
+
+            UIInventory actionBarInventory = ActionBarUIPanel.TheTransform.GetComponent<UIInventory>();
+            actionBarInventory.InventoryUUID = InventoryManager.Instance.ActionBarInventory.InventoryUUID;
         }
 
         public IUIPanel GetPanelByName(string panelName)
