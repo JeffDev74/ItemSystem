@@ -36,7 +36,7 @@ namespace FPS.InventorySystem.UI
 
                 for (int i = 0; i < UISlotList.Count; i++)
                 {
-                    if (UISlotList[i].ThisUIItem.Item != null)
+                    if (UISlotList[i].ThisUIItem != null)
                     {
                         _inventoryItems.Add(UISlotList[i].ThisUIItem);
                     }
@@ -69,6 +69,8 @@ namespace FPS.InventorySystem.UI
 
         public void RemoveItemByUUID(string itemUUID)
         {
+            Debug.Log("Will remove item [" + itemUUID + "]");
+
             foreach (UIItem invItem in InventoryItems)
             {
                 if (invItem.IsActive)
@@ -78,7 +80,7 @@ namespace FPS.InventorySystem.UI
                         invItem.DestroyItem();
                     }
                 }
-            }
+           }
         }
 
         public UISlot GetSlot()

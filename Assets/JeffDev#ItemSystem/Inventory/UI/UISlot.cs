@@ -22,6 +22,7 @@ namespace FPS.InventorySystem.UI
                 _uiItem = GetComponentInChildren<UIItem>();
                 return _uiItem;
             }
+            set { _uiItem = value; }
         }
 
         public bool IsFree

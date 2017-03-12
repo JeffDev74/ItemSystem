@@ -187,7 +187,7 @@ namespace FPS.InventorySystem
                 if (item.BaseData.UniqueUUID == uniqueUUID)
                 {
                     InternalItems.Remove(item);
-                    EventSystem.EventMessenger.Instance.Raise(new Events.EventItemWasRemovedToInventory(InventoryUUID, item));
+                    EventSystem.EventMessenger.Instance.Raise(new Events.EventItemWasRemovedToInventory(InventoryUUID, item, updateUI));
                 }
             }
             #endregion Foreach Version
