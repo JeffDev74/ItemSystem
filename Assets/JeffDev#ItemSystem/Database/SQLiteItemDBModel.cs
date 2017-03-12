@@ -80,6 +80,27 @@ namespace FPS
 
         }
 
+        public void EmptyDatabase()
+        {
+            string tableName = "items";
+            string sql = "DELETE FROM " + tableName + ";";
+
+            string _strDBName = GetDBPath();
+            IDbConnection _connection = new SqliteConnection(_strDBName);
+            IDbCommand _command = _connection.CreateCommand();
+
+            _connection.Open();
+
+            _command.CommandText = sql;
+            _command.ExecuteNonQuery();
+
+            _command.Dispose();
+            _command = null;
+
+            _connection.Close();
+            _connection = null;
+        }
+
         public string GetDBPath()
         {
             return "URI=file:" + Application.dataPath + "/StreamingAssets/JeffDev#ItemSystem/Databases/Items.bytes";
