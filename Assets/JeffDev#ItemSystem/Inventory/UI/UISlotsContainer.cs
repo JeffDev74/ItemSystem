@@ -22,6 +22,29 @@ namespace FPS.InventorySystem.UI
             }
         }
 
+        private List<UIItem> _inventoryItems;
+        public List<UIItem> InventoryItems
+        {
+            get
+            {
+                if (_inventoryItems == null)
+                {
+                    _inventoryItems = new List<UIItem>(UISlotList.Count);
+                }
+
+                _inventoryItems.Clear();
+
+                for (int i = 0; i < UISlotList.Count; i++)
+                {
+                    if (UISlotList[i].ThisUIItem.Item != null)
+                    {
+                        _inventoryItems.Add(UISlotList[i].ThisUIItem);
+                    }
+                }
+                return _inventoryItems;
+            }
+        }
+
         public int SlotsCount
         {
             get { return UISlotList.Count; }
@@ -42,6 +65,20 @@ namespace FPS.InventorySystem.UI
         public void Awake()
         {
             UpdateSlotsIds();
+        }
+
+        public void RemoveItemByUUID(string itemUUID)
+        {
+            foreach (UIItem invItem in InventoryItems)
+            {
+                if (invItem.IsActive)
+                {
+                    if (invItem.Item.BaseData.UniqueUUID == itemUUID)
+                    {
+                        invItem.DestroyItem();
+                    }
+                }
+            }
         }
 
         public UISlot GetSlot()

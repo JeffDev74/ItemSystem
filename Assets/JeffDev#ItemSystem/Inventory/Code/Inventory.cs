@@ -117,7 +117,6 @@ namespace FPS.InventorySystem
 
         private void OnAddItemEvent(EventAddItemToInventory e)
         {
-            Debug.Log("Received event to add item to inventory [" + e.InventoryUUID + "] My ID is [" + InventoryUUID + "]");
             if (e.InventoryUUID == InventoryUUID)
             {
                 if (e.Item == null)
@@ -151,6 +150,9 @@ namespace FPS.InventorySystem
             {
                 if (CanAddItem)
                 {
+                    item.Inventory = this;
+                    item.BaseData.InventoryUUID = InventoryUUID;
+                    Debug.Log("[" + TheTransform.name + "] Adding item to inventory [" + InventoryUUID + "]");
                     InternalItems.Add(item);
                     EventSystem.EventMessenger.Instance.Raise(new Events.EventItemWasAddedToInventory(InventoryUUID, item, updateUI));
                     
@@ -185,7 +187,7 @@ namespace FPS.InventorySystem
                 if (item.BaseData.UniqueUUID == uniqueUUID)
                 {
                     InternalItems.Remove(item);
-                    EventSystem.EventMessenger.Instance.Raise(new Events.EventRemoveItemFromInventory(InventoryUUID, item));
+                    EventSystem.EventMessenger.Instance.Raise(new Events.EventItemWasRemovedToInventory(InventoryUUID, item));
                 }
             }
             #endregion Foreach Version

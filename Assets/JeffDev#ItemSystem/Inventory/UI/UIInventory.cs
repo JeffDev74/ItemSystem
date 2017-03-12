@@ -5,6 +5,7 @@ using FPS.EventSystem;
 using FPS.UI;
 using FPS.InventorySystem.Events;
 using FPS.ItemSystem;
+using System;
 
 namespace FPS.InventorySystem.UI
 {
@@ -112,11 +113,13 @@ namespace FPS.InventorySystem.UI
         protected void OnEnable()
         {
             EventMessenger.Instance.AddListner<EventItemWasAddedToInventory>(OnItemAddedToInventory);
+            EventMessenger.Instance.AddListner<EventItemWasRemovedToInventory>(OnItemRemovedToInventory);
         }
 
         protected void OnDisable()
         {
             EventMessenger.Instance.RemoveListner<EventItemWasAddedToInventory>(OnItemAddedToInventory);
+            EventMessenger.Instance.RemoveListner<EventItemWasRemovedToInventory>(OnItemRemovedToInventory);
         }
 
         protected void Start()
@@ -124,7 +127,7 @@ namespace FPS.InventorySystem.UI
             SetupSlots();
         }
 
-        private void SetupSlots()
+        public void SetupSlots()
         {
             // Set the slot inventory
             for (int i = 0; i < TheSlotsContainer.SlotsCount; i++)
@@ -135,6 +138,8 @@ namespace FPS.InventorySystem.UI
                 slot.InventoryUUID = InventoryUUID;
             }
         }
+
+        #region Event Handlers
 
         private void OnItemAddedToInventory(EventItemWasAddedToInventory e)
         {
@@ -149,6 +154,23 @@ namespace FPS.InventorySystem.UI
                 AddItem(e.Item, e.UpdateUI);
             }
         }
+
+        private void OnItemRemovedToInventory(EventItemWasRemovedToInventory e)
+        {
+            if (e.UpdateUI == false)
+            {
+                Debug.Log("received event on ui but we should not update");
+                return;
+            }
+
+            if (e.InventoryUUID == InventoryUUID && e.UpdateUI)
+            {
+                TheSlotsContainer.RemoveItemByUUID(e.Item.BaseData.UniqueUUID);
+            }
+        }
+
+        #endregion Event Handlers
+
 
         private void AddItem(ICoreData item, bool updateUI)
         {
@@ -168,5 +190,6 @@ namespace FPS.InventorySystem.UI
                 Debug.LogError("The slot is null.. is the inventory full???");
             }
         }
+
     }
 }

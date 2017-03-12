@@ -83,7 +83,7 @@ namespace FPS.InventorySystem.UI
         public Sprite DefaultImage;
 
         private bool _isActive;
-        private bool IsActive
+        public bool IsActive
         {
             get { return _isActive; }
             set { _isActive = value; }
@@ -184,6 +184,11 @@ namespace FPS.InventorySystem.UI
             WornBarGO.SetActive(false);
             TheCanvasGroup.interactable = false;
             TheCanvasGroup.blocksRaycasts = false;
+        }
+
+        public void DestroyItem()
+        {
+            Debug.LogWarning("Please implement this....");
         }
 
         public void UpdateUI()

@@ -34,7 +34,7 @@ namespace FPS.UI
 
         [SerializeField]
         private UIInventory _actionBarUIPanel;
-        private IUIPanel ActionBarUIPanel
+        public IUIPanel ActionBarUIPanel
         {
             get { return _actionBarUIPanel as IUIPanel; }
             set { _actionBarUIPanel = value as UIInventory; }
@@ -65,11 +65,11 @@ namespace FPS.UI
 
         private void Start()
         {
-            UIInventory uiInventory = MainInventoryUIPanel.TheTransform.GetComponent<UIInventory>();
-            uiInventory.InventoryUUID = InventoryManager.Instance.MainInventory.InventoryUUID;
+            //UIInventory uiInventory = MainInventoryUIPanel.TheTransform.GetComponent<UIInventory>();
+            //uiInventory.InventoryUUID = InventoryManager.Instance.MainInventory.InventoryUUID;
 
-            UIInventory actionBarInventory = ActionBarUIPanel.TheTransform.GetComponent<UIInventory>();
-            actionBarInventory.InventoryUUID = InventoryManager.Instance.ActionBarInventory.InventoryUUID;
+            //UIInventory actionBarInventory = ActionBarUIPanel.TheTransform.GetComponent<UIInventory>();
+            //actionBarInventory.InventoryUUID = InventoryManager.Instance.ActionBarInventory.InventoryUUID;
         }
 
         public IUIPanel GetPanelByName(string panelName)
