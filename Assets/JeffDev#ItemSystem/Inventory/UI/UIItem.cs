@@ -188,7 +188,12 @@ namespace FPS.InventorySystem.UI
 
         public void DestroyItem()
         {
-            Debug.LogWarning("Please implement this....");
+            IsActive = false;
+            Item = null;
+
+            Icon.sprite = DefaultImage;
+            QuantityText.text = "";
+            WornBarImage.fillAmount = 0;
         }
 
         public void UpdateUI()
