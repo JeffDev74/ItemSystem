@@ -6,33 +6,78 @@ using Mono.Data.Sqlite;
 using System.Data;
 using FPS.ItemSystem;
 using FPS.ItemSystem.CustomProperty;
+using System.IO;
 
 namespace FPS
 {
+    [ExecuteInEditMode]
     public class SQLiteItemDBModel : MonoBehaviour
     {
         public static SQLiteItemDBModel Instance;
 
         public string DB_PATH = "";
-        public string DB_NAME = "";
+        public string DB_NAME = "Items.bytes";
+        public string DB_FULL_PATH;
 
         void Awake()
         {
             if (Instance == null)
             {
-                DontDestroyOnLoad(gameObject);
                 Instance = this;
             }
             else if (Instance != this)
             {
                 Destroy(gameObject);
             }
+
+            SetDbPath();
         }
 
-        void Start()
+        public void SetDbPath()
         {
-            DB_PATH = "StreamingAssets/JeffDev#ItemSystem/Databases/";
             DB_NAME = "Items.bytes";
+            DB_PATH = Application.streamingAssetsPath + Path.AltDirectorySeparatorChar + "JeffDev#ItemSystem" +
+               Path.AltDirectorySeparatorChar + "Databases" + Path.AltDirectorySeparatorChar;
+            DB_FULL_PATH = DB_PATH + DB_NAME;
+        }
+
+        public void RunMigration()
+        {
+            #region DB Structure
+            //CREATE TABLE `items` (
+            //    `id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            //    `item_uuid`	TEXT NOT NULL DEFAULT '00000000-0000-0000-0000-000000000000',
+            //    `owner_id`	TEXT NOT NULL DEFAULT '00000000-0000-0000-0000-000000000000',
+            //    `type`	TEXT NOT NULL DEFAULT 'unknown',
+            //    `data`	BLOB NOT NULL,
+            //    `properties`	BLOB NOT NULL
+            //);
+            #endregion DB Structure
+
+            string sql = "CREATE TABLE 'items' ( " +
+            "    'id'	      INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+            "    'item_uuid'  TEXT NOT NULL DEFAULT '00000000-0000-0000-0000-000000000000'," +
+            "    'owner_id'	  TEXT NOT NULL DEFAULT '00000000-0000-0000-0000-000000000000'," +
+            "    'type'	TEXT  NOT NULL DEFAULT 'unknown'," +
+            "    'data'	BLOB  NOT NULL," +
+            "    'properties' BLOB NOT NULL" +
+            ");";
+
+            string _strDBName = GetDBPath();
+            IDbConnection _connection = new SqliteConnection(_strDBName);
+            IDbCommand _command = _connection.CreateCommand();
+
+            _connection.Open();
+
+            _command.CommandText = sql;
+            _command.ExecuteNonQuery();
+
+            _command.Dispose();
+            _command = null;
+
+            _connection.Close();
+            _connection = null;
+
         }
 
         public string GetDBPath()
