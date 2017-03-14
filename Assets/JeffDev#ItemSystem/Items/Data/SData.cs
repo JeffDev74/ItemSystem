@@ -50,7 +50,7 @@ namespace FPS.ItemSystem
             set { _itemType = value; }
         }
 
-        //IInventoryData
+        // IInventoryData
         [SerializeField]
         private string _inventoryUUID;
         public string InventoryUUID
@@ -67,7 +67,7 @@ namespace FPS.ItemSystem
             set { _slotID = value; }
         }
 
-        // IStackeableData
+        // IStackeableData --> IStackable (only implement functionality)
         private int _quantity;
         public int Quantity
         {

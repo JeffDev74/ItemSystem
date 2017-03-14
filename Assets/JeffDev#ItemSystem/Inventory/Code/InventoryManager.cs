@@ -5,8 +5,6 @@ namespace FPS.InventorySystem
 {
     public class InventoryManager : MonoBehaviour
     {
-        public ItemSystem.AmmoSData theAmmo;
-
         // Refactore code to check and remove any othe
         // inventory manager found in scene
         private static InventoryManager _instance;
