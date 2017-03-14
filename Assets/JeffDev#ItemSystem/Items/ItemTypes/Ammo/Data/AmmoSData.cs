@@ -6,7 +6,7 @@ using UnityEngine;
 namespace FPS.ItemSystem
 {
     [System.Serializable]
-	public class AmmoSData : SData, ISerializeData
+	public class AmmoSData : SData, ISerializeData, ISData
 	{
         public float TravelDistance;
 

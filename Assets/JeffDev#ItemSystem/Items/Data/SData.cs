@@ -4,11 +4,12 @@ using ItemSystem;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using System;
 
 namespace FPS.ItemSystem
 {
     [System.Serializable]
-	public class SData : ISData
+	public partial class SData : ISData
     {
         [SerializeField]
         private int _id;
@@ -102,6 +103,11 @@ namespace FPS.ItemSystem
 
                 return (SData)formatter.Deserialize(ms);
             }
+        }
+
+        public void OnUIEditorGUI(BaseItem item)
+        {
+            UnityEditor.EditorGUILayout.FloatField("Example", 56);
         }
 
         #endregion ISDeepClone<Data> implementation

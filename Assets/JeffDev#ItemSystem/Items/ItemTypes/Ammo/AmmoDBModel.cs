@@ -34,11 +34,11 @@ namespace ItemSystem
 #if UNITY_EDITOR
     public class CreateAmmoDataItemsDB : MonoBehaviour
     {
-        [UnityEditor.MenuItem("JEFF/Databases/Create Ammo Items DB")]
+        [UnityEditor.MenuItem("JEFFDEV/Databases/Create Ammo Items DB")]
         public static AmmoDBModel Create()
         {
             AmmoDBModel asset = ScriptableObject.CreateInstance<AmmoDBModel>();
-            UnityEditor.AssetDatabase.CreateAsset(asset, "Assets/#ItemsCustomEditor/Resources/Databases/SO/Ammo_Items_DB.asset");
+            UnityEditor.AssetDatabase.CreateAsset(asset, "Assets/JeffDev#ItemSystem/ItemsEditor/Resources/Databases/SO/Ammo_Items_DB.asset");
             UnityEditor.AssetDatabase.SaveAssets();
             UnityEditor.AssetDatabase.Refresh();
             UnityEditor.EditorUtility.FocusProjectWindow();

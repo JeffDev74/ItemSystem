@@ -62,22 +62,28 @@ namespace FPS.ItemSystem
             set { _inventory = value; }
         }
 
+        private IDBModel _dbModel;
         public override IDBModel DBModel
         {
             get
             {
-                throw new NotImplementedException();
+                if (_dbModel == null)
+                {
+                    _dbModel = ResourceDBModel.LoadDb();
+                }
+                return _dbModel;
             }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set { _dbModel = value; }
         }
 
         public override BaseItem FactoreNewItem(ISData data, INSData nsData)
         {
-            throw new NotImplementedException();
+            ResourceItem newItem = new ResourceItem(data.SDeepClone() as ISData, nsData.NSDeepClone() as ResourceNSData);
+
+            // In Case database default values get overriten, set them back here to default
+            newItem.BaseData.UniqueUUID = System.Guid.NewGuid().ToString();
+            newItem.BaseData.SlotID = -1;
+            return newItem;
         }
     }
 }

@@ -73,7 +73,7 @@ namespace ItemSystem
             if (itemx != null)
             {
                 var item = itemx.ShallowCopy() as I;
-                item.BaseData = item.BaseData.SDeepClone();
+                item.BaseData = item.BaseData.SDeepClone() as ISData;
                 item.BaseNSData = item.BaseNSData.NSDeepClone();
                 if (item != null)
                 {

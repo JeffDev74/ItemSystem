@@ -5,6 +5,7 @@ using ItemSystem;
 
 namespace FPS.ItemSystem
 {
+
     [System.Serializable]
     public class AmmoItem : BaseItem
     {
@@ -62,22 +63,28 @@ namespace FPS.ItemSystem
             set { _inventory = value; }
         }
 
+        private IDBModel _dbModel;
         public override IDBModel DBModel
         {
             get
             {
-                throw new NotImplementedException();
+                if (_dbModel == null)
+                {
+                    _dbModel = AmmoDBModel.LoadDb();
+                }
+                return _dbModel;
             }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set { _dbModel = value; }
         }
 
         public override BaseItem FactoreNewItem(ISData data, INSData nsData)
         {
-            throw new NotImplementedException();
+            AmmoItem newItem = new AmmoItem(data.SDeepClone() as ISData, nsData.NSDeepClone() as AmmoNSData);
+
+            // In Case database default values get overriten, set them back here to default
+            newItem.BaseData.UniqueUUID = System.Guid.NewGuid().ToString();
+            newItem.BaseData.SlotID = -1;
+            return newItem;
         }
     }
 }

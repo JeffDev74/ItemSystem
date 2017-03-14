@@ -2,10 +2,10 @@
 using FPS.ItemSystem.CustomProperty;
 using UnityEngine;
 
-namespace FPS
+namespace FPS.ItemSystem
 {
     // Serializable Data
-    public interface ISData : ISDeepClone<SData>
+    public interface ISData : ISDeepClone<SData>, IUIEditor
     {
         int ID { get; set; }
         string UniqueUUID { get; set; }
