@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using FPS.ItemSystem;
-namespace FPS
+namespace FPS.ItemSystem
 {
     public interface ISDeepClone<T> where T : class
     {

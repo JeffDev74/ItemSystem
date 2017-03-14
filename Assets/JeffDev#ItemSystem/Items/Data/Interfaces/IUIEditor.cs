@@ -1,6 +1,6 @@
 ﻿using FPS.ItemSystem;
 
-namespace FPS
+namespace FPS.ItemSystem
 {
 	public interface IUIEditor
 	{

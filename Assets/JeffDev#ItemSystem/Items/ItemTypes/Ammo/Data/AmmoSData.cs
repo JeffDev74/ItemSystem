@@ -6,11 +6,12 @@ using UnityEngine;
 namespace FPS.ItemSystem
 {
     [System.Serializable]
-	public class AmmoSData : SData, ISerializeData, ISData
-	{
+	public class AmmoSData : SData, ISerializeData, ISData, IUIEditor
+    {
         public float TravelDistance;
 
         #region ISerializeData Implementation
+
         public string SerializeItemData()
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -36,6 +37,12 @@ namespace FPS.ItemSystem
             
             return factoredItem;
         }
+
         #endregion ISerializeData Implementation
+
+        public void OnUIEditorGUI(BaseItem item)
+        {
+            Debug.Log("hit");
+        }
     }
 }

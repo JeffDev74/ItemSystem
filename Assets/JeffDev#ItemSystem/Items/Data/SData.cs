@@ -105,10 +105,10 @@ namespace FPS.ItemSystem
             }
         }
 
-        public void OnUIEditorGUI(BaseItem item)
-        {
-            UnityEditor.EditorGUILayout.FloatField("Example", 56);
-        }
+        //public void OnUIEditorGUI(BaseItem item)
+        //{
+        //    UnityEditor.EditorGUILayout.FloatField("Example", 56);
+        //}
 
         #endregion ISDeepClone<Data> implementation
     }

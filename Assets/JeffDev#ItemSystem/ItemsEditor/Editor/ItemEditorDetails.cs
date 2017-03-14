@@ -36,6 +36,29 @@ namespace ItemSystem
                     {
                         EditorGUILayout.LabelField(new GUIContent("Item DB ID: " + editItem.BaseData.ID));
 
+                        Debug.Log(editItem.BaseData.GetType().Name);
+
+                        FPS.ItemSystem.ISerializeData sd = editItem.BaseData as FPS.ItemSystem.ISerializeData;
+                        if(sd != null)
+                        {
+                            Debug.Log("i am serializable");
+                        }
+                        else
+                        {
+                            Debug.Log("nope not serializable");
+                        }
+
+                        if (editItem.BaseData is IUIEditor)
+                        {
+                            
+                            Debug.Log("I am editor");
+                        }
+                        else
+                        {
+                            //ISerializeData
+                            Debug.Log("no i am not editor");
+                        }
+
                         IUIEditor iDataUIEditorGUI = editItem.BaseData as IUIEditor;
                         if (iDataUIEditorGUI != null)
                         {
@@ -44,7 +67,7 @@ namespace ItemSystem
                         }
                         else
                         {
-                            Debug.Log("Item DATA [" + editItem.BaseData.Name + "] does not implement IUIEditor interface.");
+                            Debug.LogError("Item DATA [" + editItem.BaseData.Name + "] does not implement IUIEditor interface.");
                         }
 
                         IUIEditor iNSDataUIEditorGUI = editItem.BaseNSData as IUIEditor;
@@ -55,7 +78,7 @@ namespace ItemSystem
                         }
                         else
                         {
-                            Debug.Log("Item NSDATA [" + editItem.BaseData.Name + "] does not implement IUIEditor interface.");
+                            Debug.LogError("Item NSDATA [" + editItem.BaseData.Name + "] does not implement IUIEditor interface.");
                         }
                     }
                     break;

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace FPS.ItemSystem
 {
     // Serializable Data
-    public interface ISData : ISDeepClone<SData>, IUIEditor
+    public interface ISData : ISDeepClone<SData>
     {
         int ID { get; set; }
         string UniqueUUID { get; set; }
