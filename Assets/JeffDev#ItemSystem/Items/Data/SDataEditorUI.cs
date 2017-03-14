@@ -1,15 +1,17 @@
-﻿using System;
-using FPS.ItemSystem;
-using UnityEngine;
-
-namespace FPS
+﻿
+#if UNITY_EDITOR
+namespace FPS.ItemSystem
 {
     // This class will handle out custom item editor ui fields/display of data
-    public partial class SData
+    public partial class SData : IUIEditor
     {
-        public void OnUIEditorGUI(BaseItem item)
+        public virtual void OnUIEditorGUI(BaseItem item)
         {
-            UnityEditor.EditorGUILayout.FloatField("Example", 56);
+            UnityEditor.EditorGUILayout.IntField("SO ID", ID);
+            Name =  UnityEditor.EditorGUILayout.TextField("Name", Name);
+            Description = UnityEditor.EditorGUILayout.TextField("Description", Description);
+            Type = (ItemTypeEnum)UnityEditor.EditorGUILayout.EnumPopup("Type", Type);
         }
     }
 }
+#endif

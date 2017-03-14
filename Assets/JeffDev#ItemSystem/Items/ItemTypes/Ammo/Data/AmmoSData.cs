@@ -6,9 +6,15 @@ using UnityEngine;
 namespace FPS.ItemSystem
 {
     [System.Serializable]
-	public class AmmoSData : SData, ISerializeData, ISData, IUIEditor
+	public partial class AmmoSData : SData, ISerializeData, ISData
     {
-        public float TravelDistance;
+        [SerializeField]
+        private float _travelDistance;
+        public float TravelDistance
+        {
+            get { return _travelDistance; }
+            set { _travelDistance = value; }
+        }
 
         #region ISerializeData Implementation
 
@@ -39,10 +45,5 @@ namespace FPS.ItemSystem
         }
 
         #endregion ISerializeData Implementation
-
-        public void OnUIEditorGUI(BaseItem item)
-        {
-            Debug.Log("hit");
-        }
     }
 }

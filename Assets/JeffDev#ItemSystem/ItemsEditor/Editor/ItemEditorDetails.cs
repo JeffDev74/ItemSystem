@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Globalization;
+using FPS.ItemSystem;
 
 namespace ItemSystem
 {
@@ -35,29 +36,6 @@ namespace ItemSystem
                     if (showNewItemDetails)
                     {
                         EditorGUILayout.LabelField(new GUIContent("Item DB ID: " + editItem.BaseData.ID));
-
-                        Debug.Log(editItem.BaseData.GetType().Name);
-
-                        FPS.ItemSystem.ISerializeData sd = editItem.BaseData as FPS.ItemSystem.ISerializeData;
-                        if(sd != null)
-                        {
-                            Debug.Log("i am serializable");
-                        }
-                        else
-                        {
-                            Debug.Log("nope not serializable");
-                        }
-
-                        if (editItem.BaseData is IUIEditor)
-                        {
-                            
-                            Debug.Log("I am editor");
-                        }
-                        else
-                        {
-                            //ISerializeData
-                            Debug.Log("no i am not editor");
-                        }
 
                         IUIEditor iDataUIEditorGUI = editItem.BaseData as IUIEditor;
                         if (iDataUIEditorGUI != null)

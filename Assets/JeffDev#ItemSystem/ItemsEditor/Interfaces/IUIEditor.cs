@@ -1,7 +1,7 @@
 ﻿using FPS.ItemSystem;
 using UnityEngine;
 
-namespace ItemSystem
+namespace FPS.ItemSystem
 {
     public interface IUIEditor
     {
