@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace FPS
 {
-    public interface ISData
+    // Serializable Data
+    public interface ISData : ISDeepClone<SData>
     {
         int ID { get; set; }
         string UniqueUUID { get; set; }

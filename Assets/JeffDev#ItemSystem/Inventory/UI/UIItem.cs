@@ -267,7 +267,7 @@ namespace FPS.InventorySystem.UI
         public void OnBeginDrag(PointerEventData eventData)
         {
             DraggedItem = this;
-            DraggedItemStartSlot = GetSlot();
+            DraggedItemStartSlot = GetSlot(true);
             _tmpItemStartPosition = TheTransform.position;
 
             TheTransform.SetParent(MainCanvas.transform);
@@ -303,7 +303,6 @@ namespace FPS.InventorySystem.UI
                 UpdateUI();
 
                 // check quantity ??
-
                 // Event item was removed...
             }
             else
@@ -313,9 +312,6 @@ namespace FPS.InventorySystem.UI
                     EventSystem.EventMessenger.Instance.Raise(new Events.EventAddItemToInventory(tmpSlot.InventoryUUID, tmpSlot.ThisUIItem.Item, false));
                 }
             }
-
-
-
 
             // Set Variables back to a safe value
             DraggedItem = null;

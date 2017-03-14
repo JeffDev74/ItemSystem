@@ -1,14 +1,17 @@
 ﻿using FPS.InventorySystem.UI;
+using FPS.ItemSystem;
+using ItemSystem;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 namespace FPS
 {
-	public interface INSData
-	{
+    // Non Serializable data
+	public interface INSData : INSDeepClone<NSData>
+    {
         Sprite Icon { get; set; }
 
         //IInventoryNSData
         UISlot Slot { get; set; }
-	}
+    }
 }

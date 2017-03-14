@@ -1,5 +1,8 @@
 ﻿using FPS.InventorySystem;
 using FPS.ItemSystem.CustomProperty;
+using ItemSystem;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 namespace FPS.ItemSystem
@@ -86,5 +89,21 @@ namespace FPS.ItemSystem
             }
             set { _properties = value; }
         }
-	}
+
+        #region ISDeepClone<Data> implementation
+
+        public virtual SData SDeepClone()
+        {
+            using (var ms = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(ms, this);
+                ms.Position = 0;
+
+                return (SData)formatter.Deserialize(ms);
+            }
+        }
+
+        #endregion ISDeepClone<Data> implementation
+    }
 }

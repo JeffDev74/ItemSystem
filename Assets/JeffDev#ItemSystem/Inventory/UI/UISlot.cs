@@ -94,7 +94,10 @@ namespace FPS.InventorySystem.UI
 
         private void AttachUIItem(UIItem uiItem)
         {
+            string orgParent = uiItem.transform.parent.name;
             uiItem.transform.SetParent(TheTransform);
+
+            Debug.Log("Setting item [" + orgParent + "] from parent to parent [" + uiItem.transform.parent.name + "]");
 
             if (uiItem.Item != null)
             {
