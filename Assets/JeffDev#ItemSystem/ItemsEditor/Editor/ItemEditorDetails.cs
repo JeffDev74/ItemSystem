@@ -103,22 +103,29 @@ namespace ItemSystem
                 //GUI.contentColor = Color.green;
                 if (GUILayout.Button("Save"))
                 {
-                    if (_selectedItemIndex == -1) // Is this a new item?
+                    // Add check and create item only if have a sprite
+                    if(editItem.BaseNSData.Icon != null)
                     {
-                        if (editItem.BaseData.ID == -1)
+                        if (_selectedItemIndex == -1) // Is this a new item?
                         {
-                            // This is a brand new item
-                            editItem.DBModel.Add(editItem);
+                            if (editItem.BaseData.ID == -1)
+                            {
+                                // This is a brand new item
+                                editItem.DBModel.Add(editItem);
+                            }
                         }
+                        else
+                        {
+                            editItem.DBModel.UpdateById(editItem.BaseData.ID, editItem);
+                        }
+
+                        ResetEditor();
+                        GUI.FocusControl("CancelButtonControlName");
                     }
                     else
                     {
-                        editItem.DBModel.UpdateById(editItem.BaseData.ID, editItem);
+                        EditorUtility.DisplayDialog("ERROR", "You must assign the item icon.", "OK");
                     }
-
-
-                    ResetEditor();
-                    GUI.FocusControl("CancelButtonControlName");
                 }
 
                 //GUI.contentColor = defaultFontColor;

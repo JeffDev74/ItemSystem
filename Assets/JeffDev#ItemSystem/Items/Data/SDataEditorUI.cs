@@ -7,7 +7,6 @@ namespace FPS.ItemSystem
     {
         public virtual void OnUIEditorGUI(BaseItem item)
         {
-            UnityEditor.EditorGUILayout.IntField("SO ID", ID);
             Name =  UnityEditor.EditorGUILayout.TextField("Name", Name);
             Description = UnityEditor.EditorGUILayout.TextField("Description", Description);
             Type = (ItemTypeEnum)UnityEditor.EditorGUILayout.EnumPopup("Type", Type);

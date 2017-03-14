@@ -12,7 +12,7 @@ namespace FPS.ItemSystem
 	public partial class SData : ISData
     {
         [SerializeField]
-        private int _id;
+        private int _id = -1;
         public int ID
         {
             get { return _id; }

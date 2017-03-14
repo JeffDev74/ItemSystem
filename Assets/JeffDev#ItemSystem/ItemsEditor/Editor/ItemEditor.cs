@@ -57,7 +57,6 @@ namespace ItemSystem
 
             switch (activeTab)
             {
-                
                 case ItemEditorTab.AMMO:
                     {
                         tmpItem = editItem = new AmmoItem();
@@ -71,9 +70,6 @@ namespace ItemSystem
                         
                         break;
                     }
-
-                
-                
                 case ItemEditorTab.RESOURCE:
                     {
                         tmpItem = editItem = new ResourceItem();
@@ -87,8 +83,6 @@ namespace ItemSystem
                         
                         break;
                     }
-                
-                
                 case ItemEditorTab.MISC:
                     {
                         //tmpItem = editItem = new MiscItem();

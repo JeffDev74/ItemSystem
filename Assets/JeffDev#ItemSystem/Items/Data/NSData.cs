@@ -7,6 +7,7 @@ namespace FPS.ItemSystem
     [System.Serializable]
 	public class NSData : INSData, IUIEditor
     {
+        [SerializeField]
         private Sprite _icon;
         public Sprite Icon
         {
