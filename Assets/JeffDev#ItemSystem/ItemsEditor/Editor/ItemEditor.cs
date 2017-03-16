@@ -13,6 +13,7 @@ namespace ItemSystem
         
         protected enum ItemEditorTab
         {
+            WEAPON,
             AMMO,
             RESOURCE,
             MISC
@@ -57,6 +58,19 @@ namespace ItemSystem
 
             switch (activeTab)
             {
+                case ItemEditorTab.WEAPON:
+                    {
+                        tmpItem = editItem = new WeaponItem();
+
+                        dbItems.Clear();
+                        foreach (BaseItem item in tmpItem.DBModel.Database<WeaponItem>())
+                        {
+                            dbItems.Add(item);
+                        }
+
+
+                        break;
+                    }
                 case ItemEditorTab.AMMO:
                     {
                         tmpItem = editItem = new AmmoItem();

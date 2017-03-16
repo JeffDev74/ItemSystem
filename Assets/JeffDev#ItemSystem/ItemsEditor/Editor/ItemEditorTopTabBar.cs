@@ -25,7 +25,7 @@ namespace ItemSystem
         void TopTabBar()
         {
             GUILayout.BeginHorizontal("Box", GUILayout.ExpandWidth(true));
-            
+            WeaponTab();
             AmmoTab();
             ResourcesTab();
             MiscTab();
@@ -47,6 +47,18 @@ namespace ItemSystem
 
             GUILayout.EndHorizontal();
 
+        }
+
+        void WeaponTab()
+        {
+            if (activeTab == ItemEditorTab.WEAPON) GUI.backgroundColor = Color.cyan;
+            if (GUILayout.Button("WEAPON"))
+            {
+                activeTab = ItemEditorTab.WEAPON;
+                ResetEditor();
+                return;
+            }
+            GUI.backgroundColor = defaultBGColor;
         }
 
         void AmmoTab()
