@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using System;
 using FPS.ItemSystem;
-using FPS;
 
 namespace ItemSystem
 {

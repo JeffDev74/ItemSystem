@@ -1,14 +1,14 @@
 ﻿using FPS.ItemSystem;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ItemSystem
 {
-	public class WeaponDBModel : ScriptableObjectItemDB<WeaponItem>
+    public class WeaponDBModel : ScriptableObjectItemDB<WeaponItem>
     {
         public static WeaponDBModel LoadDb()
         {
             return ScriptableObjectItemDB<WeaponItem>.LoadDb<WeaponDBModel>("Databases/SO/Weapon_Items_DB") as WeaponDBModel;
-            //return LoadDb<AmmoDBModel>("Databases/SO/Ammo_Items_DB") as AmmoDBModel;
         }
 
         public WeaponItem CreateNew()

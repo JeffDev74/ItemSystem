@@ -3,13 +3,11 @@ using UnityEngine;
 
 namespace ItemSystem
 {
-    //[System.Serializable]
     public class AmmoDBModel : ScriptableObjectItemDB<AmmoItem>
     {
         public static AmmoDBModel LoadDb()
         {
             return ScriptableObjectItemDB<AmmoItem>.LoadDb<AmmoDBModel>("Databases/SO/Ammo_Items_DB") as AmmoDBModel;
-            //return LoadDb<AmmoDBModel>("Databases/SO/Ammo_Items_DB") as AmmoDBModel;
         }
 
         public AmmoItem CreateNew()

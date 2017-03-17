@@ -3,14 +3,11 @@ using UnityEngine;
 
 namespace ItemSystem
 {
-    //[System.Serializable]
     public class ResourceDBModel : ScriptableObjectItemDB<ResourceItem>
     {
         public static ResourceDBModel LoadDb()
         {
             return Resources.Load("Databases/SO/Resource_Items_DB") as ResourceDBModel;
-            //ResourceDBModel resourceDb = Resources.Load("Databases/SO/Resource_Items_DB") as ResourceDBModel;
-            //return ScriptableObject.Instantiate(resourceDb);
         }
 
         public ResourceItem CreateNew()
@@ -33,7 +30,7 @@ namespace ItemSystem
     }
 
 #if UNITY_EDITOR
-    public class CreateResourceItemsDB : MonoBehaviour
+    public class CreateResourceDataItemsDB : MonoBehaviour
     {
         [UnityEditor.MenuItem("JEFFDEV/Databases/Create Resource Items DB")]
         public static ResourceDBModel Create()
