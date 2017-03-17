@@ -271,7 +271,10 @@ namespace FPS.InventorySystem.UI
 
         public void UpdateSlotInfo()
         {
-            //Debug.Log("Updating slot info for item [" + Item.BaseData.ItemName + "] [" + Item.BaseData.Quantity + "]");
+            Debug.Log(Item);
+            Debug.Log(Item.BaseData);
+            Debug.Log(Item.BaseNSData);
+
             Item.BaseData.SlotID = Slot.ID;
             Item.BaseNSData.Slot = Slot;
             Item.BaseData.InventoryUUID = Slot.InventoryUUID;
@@ -311,7 +314,7 @@ namespace FPS.InventorySystem.UI
         #region IEndDragHandler implementation
         public void OnEndDrag(PointerEventData eventData)
         {
-            //if (Item == null) return;
+            if (Item == null) return;
 
             // If the parent slot is the same move the item back to its
             // start position
@@ -327,7 +330,7 @@ namespace FPS.InventorySystem.UI
             //UIInventorySlot _tmpSlot = transform.parent.GetComponent<UIInventorySlot>();
             if (Slot == null)
             {
-                //Debug.Log("DRAGGED OUTSIDE INVENTORY");
+                Debug.Log("DRAGGED OUTSIDE INVENTORY");
 
                 // Put the item back to its place
                 transform.SetParent(DraggedItemStartSlot.transform);
@@ -361,16 +364,18 @@ namespace FPS.InventorySystem.UI
 
             if ((Item.BaseData as IStackableData).Quantity <= 0)
             {
-                //Debug.Log("ITEM HAVE NO QUANTITY REMOVING");
-                // --> DraggedItemStartSlot.InventoryPanel.Inventory.RemoveItemByUUID(Item.BaseData.UniqueUUID, false);
+                Debug.Log("ITEM HAVE NO QUANTITY REMOVING");
+                IInventory inventory = InventoryManager.Instance.GetInventoryByUUID(DraggedItemStartSlot.InventoryUUID);
+                if(inventory != null)
+                {
+                    inventory.RemoveItem(Item.BaseData.UniqueUUID, true);
+                }
+                //DraggedItemStartSlot.InventoryPanel.Inventory.RemoveItemByUUID(Item.BaseData.UniqueUUID, false);
                 DestroyItem();
                 return;
             }
 
             UpdateSlotInfo();
-
-            //EventMessenger.Instance.Raise(new EventUIInventoryItemChanged(Slot.InventoryPanel.Inventory.UniqueUUID, Item.BaseData));
-            // -->EventMessenger.Instance.Raise(new EventUIInventoryItemChanged(Item.BaseData.InventoryUniqueUUID, Item.BaseData));
 
             // We no longer need this references
             // Set back to a safe value 
@@ -382,8 +387,6 @@ namespace FPS.InventorySystem.UI
             ToggleDamageBar(true);
             UpdateQuantity();
             UpdateDamageBar();
-
-            // --> EventMessenger.Instance.Raise(new EventUIInventoryItemDropedOnSlot(this));
         }
         #endregion
     }

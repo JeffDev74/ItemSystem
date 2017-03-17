@@ -23,17 +23,17 @@ namespace FPS
 
         private void OnItemWasAddedEvent(EventItemWasAddedToInventory e)
         {
-            Debug.Log("The item ["+e.Item.BaseData.Name+"] was added from inventory ["+e.InventoryUUID+"]");
+            //Debug.Log("The item ["+e.Item.BaseData.Name+"] was added from inventory ["+e.InventoryUUID+"]");
         }
 
         private void OnItemWasRemovedEvent(EventItemWasRemovedToInventory e)
         {
-            Debug.Log("The item [" + e.Item.BaseData.Name + "] was removed from inventory [" + e.InventoryUUID + "]");
+            //Debug.Log("The item [" + e.Item.BaseData.Name + "] was removed from inventory [" + e.InventoryUUID + "]");
         }
 
         private void OnItemWasUpdatedEvent(EventItemWasUpdatedOnInventory e)
         {
-            Debug.Log("The item [" + e.Item.BaseData.Name + "] was updated from inventory [" + e.InventoryUUID + "]");
+            //Debug.Log("The item [" + e.Item.BaseData.Name + "] was updated from inventory [" + e.InventoryUUID + "]");
         }
 
         

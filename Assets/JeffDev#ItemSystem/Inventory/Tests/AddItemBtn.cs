@@ -21,13 +21,15 @@ namespace FPS
         public void AddItem()
         {
             SetupInventory();
-            EventMessenger.Instance.Raise(new EventAddItemToInventory(inventory_uuid, FactoryItem(), true));
+            EventMessenger.Instance.Raise(new EventAddItemToInventory(inventory_uuid, FactoryAmmoItem(), true));
+            EventMessenger.Instance.Raise(new EventAddItemToInventory(inventory_uuid, FactoryResourceItem(), true));
         }
 
         public void AddItemToActionBar()
         {
             SetupInventory();
-            EventMessenger.Instance.Raise(new EventAddItemToInventory(actionBayInventory_uuid, FactoryItem(), true));
+            EventMessenger.Instance.Raise(new EventAddItemToInventory(actionBayInventory_uuid, FactoryAmmoItem(), true));
+            EventMessenger.Instance.Raise(new EventAddItemToInventory(actionBayInventory_uuid, FactoryResourceItem(), true));
         }
 
         private void SetupInventory()
@@ -45,9 +47,14 @@ namespace FPS
             uiActionBarInventory.SetupSlots();
         }
 
-        public ICoreData FactoryItem()
+        public ICoreData FactoryAmmoItem()
         {
             return SODatabaseManager.Instance.AmmoSODBModel.GetById<BaseItem>(1);
+        }
+
+        public ICoreData FactoryResourceItem()
+        {
+            return SODatabaseManager.Instance.ResourceSODBModel.GetById<BaseItem>(1);
         }
     }
 }

@@ -135,11 +135,8 @@ namespace FPS.InventorySystem.UI
                     Debug.Log("EMPTY CROSS PANEL");
 
                     // Remove item from inventory that its coming from
-                    //UIInventoryItem.tmpItemBeingDragged.Item.Inventory.RemoveItemByUUID(UIInventoryItem.tmpItemBeingDragged.Item.BaseData.UniqueUUID, false);
-                    //EventMessenger.Instance.Raise(new EventRemoveItemFromInventory(UIInventoryItem.tmpItemBeingDragged.Item.Inventory.UniqueUUID, UIInventoryItem.tmpItemBeingDragged.Item, false));
                     EventMessenger.Instance.Raise(new EventRemoveItemFromInventory(UIItem.DraggedItemStartSlot.InventoryUUID, UIItem.DraggedItem.Item, false));
 
-                    // is this right? i am setting the panel id here and removing item bellow? will this afect anything?
                     UIItem.DraggedItem.Item.BaseData.InventoryUUID = InventoryUUID;
 
                     // IMPORTANT SET THE INVENTORY
@@ -147,7 +144,6 @@ namespace FPS.InventorySystem.UI
                     //this.ThisUIItem.Item.Inventory = ThisUIItem.Item.Inventory;//  InventoryPanel.Inventory;
 
                     // Add Item to the new inventory
-                    //InventoryPanel.Inventory.AddItemNoStack(UIInventoryItem.tmpItemBeingDragged.Item, false);
                     EventMessenger.Instance.Raise(new EventAddItemToInventory(InventoryUUID, UIItem.DraggedItem.Item, false));
 
                     this.ThisUIItem.transform.SetParent(UIItem.DraggedItemStartSlot.transform);
@@ -192,7 +188,6 @@ namespace FPS.InventorySystem.UI
                             ThisUIItem.UpdateQuantity();
                             UIItem.DraggedItem.UpdateQuantity();
 
-                            //if (UIItem.DraggedItem.Item.BaseData.InventoryUUID != InventoryPanel.Inventory.UniqueUUID)
                             if (IsCrossInventory)
                             {
                                 Debug.Log("STACK WITH DESTROY CROSS PANEL");
@@ -268,68 +263,39 @@ namespace FPS.InventorySystem.UI
 
         public void SwapNonStackable()
         {
-            //int itemBeingDraggedSlotid = UIInventoryItem.tmpItemStartSlot.id;
-            //string itemBeingDraggedSlotName = UIInventoryItem.tmpItemStartSlot.name;
-
-            //int itemSlotid = id;
-            //string itemSlotName = transform.name;
-            //Debug.Log("Xresearch dragged item slot name [" + itemBeingDraggedSlotName + "] item slotname [" + itemSlotName + "]");
-
-            //// Update item base data slot info before set parent
-            //InventoryItem.Item.BaseData.InventorySlotId = itemBeingDraggedSlotid;
-            //InventoryItem.Item.BaseData.InventorySlotName = itemBeingDraggedSlotName;
-            //InventoryItem.Item.BaseNSData.InventoryUISlot = UIInventoryItem.tmpItemStartSlot;
-
-
-            //UIInventoryItem.tmpItemBeingDragged.Item.BaseData.InventorySlotId = itemSlotid;
-            //UIInventoryItem.tmpItemBeingDragged.Item.BaseData.InventorySlotName = itemSlotName;
-            //UIInventoryItem.tmpItemBeingDragged.Item.BaseNSData.InventoryUISlot = this;
-
             // Set the dragged item to this slot
             UIItem.DraggedItem.transform.SetParent(transform);
 
             if(IsCrossInventory)
-            //if (UIItem.DraggedItem.Item.BaseData.InventoryUUID != InventoryUUID)
             {
-                //Debug.Log("SWAP NON STACKABLE ITEM CROSS PANEL");
+                Debug.Log("SWAP NON STACKABLE ITEM CROSS PANEL");
 
                 // Remove dragged item from its inventory
-                //UIInventoryItem.tmpItemBeingDragged.Item.Inventory.RemoveItemByUUID(UIInventoryItem.tmpItemBeingDragged.Item.BaseData.UniqueUUID, false);
-                // --> EventMessenger.Instance.Raise(new EventRemoveItemFromInventory(UIInventoryItem.tmpItemBeingDragged.Item.Inventory.UniqueUUID, UIInventoryItem.tmpItemBeingDragged.Item, false));
+                ////EventMessenger.Instance.Raise(new EventRemoveItemFromInventory(UIItem.DraggedItemStartSlot.InventoryUUID, UIItem.DraggedItem.Item, false));
 
                 UIItem.DraggedItem.Item.BaseData.InventoryUUID = InventoryUUID;
 
                 ThisUIItem.Item.Inventory = UIItem.DraggedItem.Item.Inventory;
 
                 // Add this item to the dragged item inventory
-                //UIInventoryItem.tmpItemBeingDragged.Item.Inventory.AddItem(InventoryItem.Item, false);
-                // --> EventMessenger.Instance.Raise(new EventAddItemToInventory(UIInventoryItem.tmpItemBeingDragged.Item.Inventory.UniqueUUID, InventoryItem.Item, false, false));
-
-                // ADDED FOR ACTION BAR
-                // --> EventMessenger.Instance.Raise(new EventUIInventoryItemAdded(UIInventoryItem.tmpItemStartSlot.InventoryPanel, InventoryItem));
-
+                ////EventMessenger.Instance.Raise(new EventAddItemToInventory(UIItem.DraggedItemStartSlot.InventoryUUID, ThisUIItem.Item, false));
 
                 // Remove this item from its inventory
-                //InventoryPanel.Inventory.RemoveItemByUUID(InventoryItem.Item.BaseData.UniqueUUID, false);
-                // --> EventMessenger.Instance.Raise(new EventRemoveItemFromInventory(InventoryPanel.Inventory.UniqueUUID, InventoryItem.Item, false));
+                ////EventMessenger.Instance.Raise(new EventRemoveItemFromInventory(InventoryUUID, ThisUIItem.Item, false));
 
+                // I am not sure if we need to update the item data inventory id here
                 ThisUIItem.Item.BaseData.InventoryUUID = UIItem.DraggedItemStartSlot.InventoryUUID;
 
                 // IMPORTANT SET INVENTORY
                 // --> UIItem.DraggedItemd.Item.Inventory = InventoryPanel.Inventory;
+                //UIItem.DraggedItemStartSlot.InventoryUUID = InventoryUUID;
 
                 // Add the dragged item to this inventory
-                //InventoryPanel.Inventory.AddItem(UIInventoryItem.tmpItemBeingDragged.Item, false);
-                // --> EventMessenger.Instance.Raise(new EventAddItemToInventory(InventoryPanel.Inventory.UniqueUUID, UIInventoryItem.tmpItemBeingDragged.Item, false, false));
-
-                // ADDED FOR ACTION BAR
-                // --> EventMessenger.Instance.Raise(new EventUIInventoryItemAdded(InventoryPanel, UIInventoryItem.tmpItemBeingDragged));
+                ////EventMessenger.Instance.Raise(new EventAddItemToInventory(InventoryUUID, UIItem.DraggedItem.Item, false));
 
                 // Set this item to the dragged item slot
                 ThisUIItem.transform.SetParent(UIItem.DraggedItemStartSlot.transform);
 
-                ////ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged(InventoryItem, null));
-                ////ExecuteEvents.ExecuteHierarchy<IHasChanged>(UIInventoryItem.tmpItemStartSlot.gameObject, null, (x, y) => x.HasChanged(InventoryItem, null));
             }
             else
             {

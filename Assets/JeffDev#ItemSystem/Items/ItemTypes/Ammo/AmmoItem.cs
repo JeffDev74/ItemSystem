@@ -118,18 +118,18 @@ namespace FPS.ItemSystem
             // NOTE:
             // By returning null in this method
             // a switch will happen on UISlot class
-
             itemToStack = itemToStack as AmmoItem;
+            if (itemToStack == null)
+            {
+                return null;
+            }
+
             IStackableData iStackDataInterface = itemToStack.BaseData as IStackableData;
             if (iStackDataInterface == null)
             {
                 return null;
             }
 
-            if (itemToStack == null)
-            {
-                return null;
-            }
 
             StackResult result = null;
 
