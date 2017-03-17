@@ -47,7 +47,7 @@ namespace FPS
 
         public ICoreData FactoryItem()
         {
-            return SODatabaseManager.Instance.ResourceSODBModel.GetById<BaseItem>(1);
+            return SODatabaseManager.Instance.AmmoSODBModel.GetById<BaseItem>(1);
         }
     }
 }

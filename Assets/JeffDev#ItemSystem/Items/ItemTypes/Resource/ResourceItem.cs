@@ -114,8 +114,6 @@ namespace FPS.ItemSystem
 
         public StackResult Stack(BaseItem itemToStack)
         {
-
-            
             // NOTE:
             // By returning null in this method
             // a switch will happen on UISlot class
@@ -165,24 +163,24 @@ namespace FPS.ItemSystem
                             //result.leftItem = left;
                             result.item = itemToStack;
                         }
-                        Debug.Log("The items where stacked.");
+                        //Debug.Log("The items where stacked.");
                         return result;
                     }
                     else
                     {
-                        Debug.Log("The item in the left is full");
+                        //Debug.Log("The item in the left is full");
                         return null;
                     }
                 }
                 else
                 {
-                    Debug.Log("one of the items is not stackable.");
+                    //Debug.Log("one of the items is not stackable.");
                     return null;
                 }
             }
             else
             {
-                Debug.Log("The item type is not the same");
+                //Debug.Log("The item type is not the same");
                 return null;
             }
         }
