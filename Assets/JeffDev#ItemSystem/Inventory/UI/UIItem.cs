@@ -232,7 +232,7 @@ namespace FPS.InventorySystem.UI
             }
             else
             {
-                QuantityText.text = Item.BaseData.Quantity.ToString();
+                QuantityText.text = (Item.BaseData as IStackableData).Quantity.ToString();
                 QuantityTextGO.SetActive(true);
             }
         }
@@ -338,7 +338,7 @@ namespace FPS.InventorySystem.UI
                 // If the item was stacked the slot will be null as well
                 // so we check if the quantity is greater then 0 to generate drop
                 // Trigger event to generate inventory drop
-                if (Item.BaseData.Quantity > 0)
+                if ((Item.BaseData as IStackableData).Quantity > 0)
                 {
                     // --> EventMessenger.Instance.Raise(new EventInventoryGenerateDrop(DraggedItemStartSlot.InventoryPanel.Inventory, Item));
                 }
@@ -359,7 +359,7 @@ namespace FPS.InventorySystem.UI
                 return;
             }
 
-            if (Item.BaseData.Quantity <= 0)
+            if ((Item.BaseData as IStackableData).Quantity <= 0)
             {
                 //Debug.Log("ITEM HAVE NO QUANTITY REMOVING");
                 // --> DraggedItemStartSlot.InventoryPanel.Inventory.RemoveItemByUUID(Item.BaseData.UniqueUUID, false);

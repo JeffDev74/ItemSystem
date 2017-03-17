@@ -43,12 +43,22 @@ namespace FPS
             testItem.BaseData.ID = 1;
             testItem.BaseData.UniqueUUID = System.Guid.NewGuid().ToString();
             testItem.BaseData.Name = "Wood";
-            testItem.BaseData.Quantity = 777;
+            IStackableData iStackData = testItem as IStackableData;
+            if(iStackData != null)
+            {
+                iStackData.Quantity = 777;
+            }
+
             testItem.BaseData.Description = "Wood Resource";
           
             testItem.BaseNSData = new ResourceNSData();
             testItem.BaseNSData.Icon = itemIcon;
             return testItem as ICoreData;
+        }
+
+        public interface WeaponAllData : ISData, IStackableData
+        {
+
         }
     }
 }

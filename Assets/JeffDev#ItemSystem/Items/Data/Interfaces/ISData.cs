@@ -23,6 +23,6 @@ namespace FPS.ItemSystem
         PropertyManager Properties { get; set; }
 
         //IStackable
-        int Quantity { get; set; }
+        //int Quantity { get; set; }
     }
 }

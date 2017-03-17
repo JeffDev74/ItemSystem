@@ -177,63 +177,57 @@ namespace FPS.InventorySystem.UI
                 // Here I can change where to check for the stackable interface
                 // could be in the item itself (ItemContainer.Item)
                 // or it could be in the data (ItemContainer.Item.BaseData)
-                // --> IStackable stackInterface = InventoryItem.Item as IStackable;
-                //if (stackInterface != null && stackInterface.IsStackable)
-                bool stack = false;
-                if(stack)
+                IStackable stackInterface = ThisUIItem.Item as IStackable;
+                if (stackInterface != null && stackInterface.IsStackable)
                 {
-                    //    //stackInterface = InventoryItem.Item as IStackable;
-
-
-                    //    StackResult stackResult = stackInterface.Stack(UIInventoryItem.tmpItemBeingDragged.Item);
-                    bool stackresult = false;
-                //    if (stackResult != null)
-                if(stackresult)
+                    StackResult stackResult = stackInterface.Stack(UIItem.DraggedItem.Item as BaseItem);
+                    if (stackResult != null)
                     {
-                        //if (stackResult.item.BaseData.Quantity <= 0)
-                        //{
-                        //    //Debug.Log("ITEMS WERE STACKED RESULT QUANTITY IS <= 0");
+                        if ((stackResult.item.BaseData as IStackableData).Quantity <= 0)
+                        {
+                            //Debug.Log("ITEMS WERE STACKED RESULT QUANTITY IS <= 0");
 
-                        //    // Set the slot ItemContainer that the item is being dragged from to null
-                        //    UIInventoryItem.tmpItemStartSlot.InventoryItem = InventoryItem;
+                            // Set the slot ItemContainer that the item is being dragged from to null
+                            UIItem.DraggedItemStartSlot.ThisUIItem = ThisUIItem;
 
-                        //    //InventoryItem.Item.BaseData.Quantity = stackResult.leftItem.BaseData.Quantity;
-                        //    InventoryItem.UpdateQuantity();
+                            //InventoryItem.Item.BaseData.Quantity = stackResult.leftItem.BaseData.Quantity;
+                            ThisUIItem.UpdateQuantity();
 
-                        //    if (UIInventoryItem.tmpItemBeingDragged.Item.BaseData.InventoryUniqueUUID != InventoryPanel.Inventory.UniqueUUID)
-                        //    {
-                        //        Debug.Log("STACK WITH DESTROY CROSS PANEL");
-                        //        EventMessenger.Instance.Raise(new EventUIInventoryItemChanged(InventoryPanel.Inventory.UniqueUUID, InventoryItem.Item.BaseData));
-                        //        ////ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged(InventoryItem, null));
-                        //        ////ExecuteEvents.ExecuteHierarchy<IHasChanged>(UIInventoryItem.tmpItemStartSlot.gameObject, null, (x, y) => x.HasChanged(InventoryItem, null));
-                        //    }
-                        //    else
-                        //    {
-                        //        Debug.Log("STACK WITH DESTROY SAME PANEL");
+                            //if (UIItem.DraggedItem.Item.BaseData.InventoryUUID != InventoryPanel.Inventory.UniqueUUID)
+                            if(IsCrossInventory)
+                            {
+                                Debug.Log("STACK WITH DESTROY CROSS PANEL");
+                                // --> EventMessenger.Instance.Raise(new EventUIInventoryItemChanged(InventoryPanel.Inventory.UniqueUUID, InventoryItem.Item.BaseData));
+                                ////ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged(InventoryItem, null));
+                                ////ExecuteEvents.ExecuteHierarchy<IHasChanged>(UIInventoryItem.tmpItemStartSlot.gameObject, null, (x, y) => x.HasChanged(InventoryItem, null));
+                            }
+                            else
+                            {
+                                Debug.Log("STACK WITH DESTROY SAME PANEL");
 
-                        //        UIInventoryItem.tmpItemBeingDragged.transform.SetParent(UIInventoryItem.tmpItemStartSlot.transform);
-                        //        EventMessenger.Instance.Raise(new EventUIInventoryItemChanged(InventoryPanel.Inventory.UniqueUUID, InventoryItem.Item.BaseData));
+                                UIItem.DraggedItem.transform.SetParent(UIItem.DraggedItemStartSlot.transform);
+                                // --> EventMessenger.Instance.Raise(new EventUIInventoryItemChanged(InventoryPanel.Inventory.UniqueUUID, InventoryItem.Item.BaseData));
 
-                        //        ////ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged(InventoryItem, null));
-                        //    }
+                                ////ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged(InventoryItem, null));
+                            }
 
-                        //}
-                        //else
-                        //{
-                        //    //Debug.Log("ITEMS WERE STACKED BOTH ITEMS STILL HAVE QUANTITY");
-                        //    // right item (dragged item) exchanged the quantities but 
-                        //    // it still have quantity
-                        //    // put it back where it came from
-                        //    UIInventoryItem.tmpItemBeingDragged.transform.SetParent(UIInventoryItem.tmpItemStartSlot.transform);
+                        }
+                        else
+                        {
+                            //Debug.Log("ITEMS WERE STACKED BOTH ITEMS STILL HAVE QUANTITY");
+                            // right item (dragged item) exchanged the quantities but 
+                            // it still have quantity
+                            // put it back where it came from
+                            UIItem.DraggedItem.transform.SetParent(UIItem.DraggedItemStartSlot.transform);
 
-                        //    // update the left (item in this slot) item quantity
-                        //    InventoryItem.UpdateQuantity();
-                        //    // update right item (dragged item) quantity
-                        //    UIInventoryItem.tmpItemBeingDragged.UpdateQuantity();
+                            // update the left (item in this slot) item quantity
+                            ThisUIItem.UpdateQuantity();
+                            // update right item (dragged item) quantity
+                            UIItem.DraggedItem.UpdateQuantity();
 
 
-                        //    //EventMessenger.Instance.Raise(new EventUIInventoryItemChanged(InventoryItem.Slot.InventoryPanel.Inventory.UniqueUUID, InventoryItem.Item.BaseData));
-                        //}
+                            //EventMessenger.Instance.Raise(new EventUIInventoryItemChanged(InventoryItem.Slot.InventoryPanel.Inventory.UniqueUUID, InventoryItem.Item.BaseData));
+                        }
 
                         // Since the item being dragged may be destroyed se send an event
                         // on dropped on slot with the item already in the slot

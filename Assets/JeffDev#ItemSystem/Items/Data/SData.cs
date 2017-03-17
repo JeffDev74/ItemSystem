@@ -68,12 +68,12 @@ namespace FPS.ItemSystem
         }
 
         // IStackeableData --> IStackable (only implement functionality)
-        private int _quantity;
-        public int Quantity
-        {
-            get { return _quantity; }
-            set { _quantity = value; }
-        }
+        //private int _quantity;
+        //public int Quantity
+        //{
+        //    get { return _quantity; }
+        //    set { _quantity = value; }
+        //}
 
         //ICustomPropertyData
         [SerializeField]
