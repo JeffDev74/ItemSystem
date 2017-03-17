@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FPS.ItemSystem
 {
-	public class WeaponItem : BaseItem
+	public class WeaponItem : BaseItem, IStackable
 	{
         public WeaponItem(ISData _data, INSData _nsData) : base(_data, _nsData)
         {
@@ -83,5 +83,39 @@ namespace FPS.ItemSystem
             newItem.BaseData.SlotID = -1;
             return newItem;
         }
+
+        #region IStackable Interface Implementation
+
+        public bool IsStackable
+        {
+            get { return (BaseData as IStackableData).IsStackable; }
+            set { (BaseData as IStackableData).IsStackable = value; }
+        }
+
+        public bool DestroyOnUse
+        {
+            get { return (BaseData as IStackableData).DestroyOnUse; }
+            set { (BaseData as IStackableData).DestroyOnUse = value; }
+        }
+
+        public int Quantity
+        {
+            get { return (BaseData as IStackableData).Quantity; }
+            set { (BaseData as IStackableData).Quantity = value; }
+        }
+
+        public int StackableMax
+        {
+            get { return (BaseData as IStackableData).StackableMax; }
+            set { (BaseData as IStackableData).StackableMax = value; }
+        }
+
+        public StackResult Stack(BaseItem rightItem)
+        {
+            // Istackabledata
+            return null;
+        }
+
+        #endregion IStackable Interface Implementation
     }
 }

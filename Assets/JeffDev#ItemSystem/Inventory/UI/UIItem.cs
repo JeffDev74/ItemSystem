@@ -51,6 +51,11 @@ namespace FPS.InventorySystem.UI
             }
         }
 
+        public UISlot Slot
+        {
+            get { return GetComponentInParent<UISlot>(); }
+        }
+
         private UISlot _theUISlot;
         public UISlot GetSlot(bool force = false)
         {
@@ -264,60 +269,122 @@ namespace FPS.InventorySystem.UI
             }
         }
 
+        public void UpdateSlotInfo()
+        {
+            //Debug.Log("Updating slot info for item [" + Item.BaseData.ItemName + "] [" + Item.BaseData.Quantity + "]");
+            Item.BaseData.SlotID = Slot.ID;
+            Item.BaseNSData.Slot = Slot;
+            Item.BaseData.InventoryUUID = Slot.InventoryUUID;
+        }
+
+        #region IBeginDragHandler implementation
         public void OnBeginDrag(PointerEventData eventData)
         {
             DraggedItem = this;
-            DraggedItemStartSlot = GetSlot(true);
-            _tmpItemStartPosition = TheTransform.position;
+            _tmpItemStartPosition = transform.position;
 
-            TheTransform.SetParent(MainCanvas.transform);
+            //// Set the tmpStart slot to our slot;
+            DraggedItemStartSlot = Slot;
+
+            //// ATTATCH THE SlotItemContainer to the MAIN-UI (UIManager)
+            //Canvas c = Slot.InventoryPanel.GetComponentInParent<UIManager>();
+
+            //// Make the item chield of the main canvas to avoid 
+            //// the icon override (slot under another) when dragging the item
+            //if (uiManager != null)
+            //{
+            transform.SetParent(MainCanvas.transform);// uiManager.transform);
+            //}
 
             TheCanvasGroup.blocksRaycasts = false;
         }
+        #endregion
 
+        #region IDragHandler implementation
         public void OnDrag(PointerEventData eventData)
         {
             transform.position = Input.mousePosition;
-        }
 
+        }
+        #endregion
+
+        #region IEndDragHandler implementation
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (TheTransform.parent == DraggedItemStartSlot)
+            //if (Item == null) return;
+
+            // If the parent slot is the same move the item back to its
+            // start position
+            if (transform.parent == DraggedItemStartSlot)
             {
-                TheTransform.position = _tmpItemStartPosition;
+                transform.position = _tmpItemStartPosition;
+                Debug.Log("slot changed setting position");
             }
 
-            UISlot tmpSlot = GetSlot(true);
+            TheCanvasGroup.blocksRaycasts = true;
 
-            if (tmpSlot == null)
+            // If The item is dragged outside a valid slot remove it
+            //UIInventorySlot _tmpSlot = transform.parent.GetComponent<UIInventorySlot>();
+            if (Slot == null)
             {
-                TheTransform.SetParent(DraggedItemStartSlot.transform);
-                // Remove item from inventory
+                //Debug.Log("DRAGGED OUTSIDE INVENTORY");
 
-                if (Item != null)
+                // Put the item back to its place
+                transform.SetParent(DraggedItemStartSlot.transform);
+
+                //tmpItemStartSlot.InventoryPanel.Inventory.RemoveItem(Item, false);
+                // --> DraggedItemStartSlot.InventoryPanel.Inventory.RemoveItemByUUID(Item.BaseData.UniqueUUID, false);
+
+                // If the item was stacked the slot will be null as well
+                // so we check if the quantity is greater then 0 to generate drop
+                // Trigger event to generate inventory drop
+                if (Item.BaseData.Quantity > 0)
                 {
-                    EventSystem.EventMessenger.Instance.Raise(new Events.EventRemoveItemFromInventory(DraggedItemStartSlot.InventoryUUID, DraggedItemStartSlot.ThisUIItem.Item, false));
+                    // --> EventMessenger.Instance.Raise(new EventInventoryGenerateDrop(DraggedItemStartSlot.InventoryPanel.Inventory, Item));
                 }
 
-                Item = null;
-                UpdateUI();
+                // The action bar listen for this event
+                // If the current active item in the action bar
+                // is this item it will be disabled
+                // Also the UIMain panel listen for this event
+                // to trigger the event to remove the item from the inventory
+                //EventMessenger.Instance.Raise(new EventUIInventoryItemRemove(tmpItemStartSlot.InventoryPanel, this));
 
-                // check quantity ??
-                // Event item was removed...
+                // Event used by crafting system to recalculate items if inventory changes.
+                // --> EventMessenger.Instance.Raise(new EventUIInventoryChanged(DraggedItemStartSlot.InventoryPanel.Inventory));
+
+
+                DestroyItem();
+
+                return;
             }
-            else
+
+            if (Item.BaseData.Quantity <= 0)
             {
-                if (tmpSlot.InventoryUUID != DraggedItemStartSlot.InventoryUUID)
-                {
-                    EventSystem.EventMessenger.Instance.Raise(new Events.EventAddItemToInventory(tmpSlot.InventoryUUID, tmpSlot.ThisUIItem.Item, false));
-                }
+                //Debug.Log("ITEM HAVE NO QUANTITY REMOVING");
+                // --> DraggedItemStartSlot.InventoryPanel.Inventory.RemoveItemByUUID(Item.BaseData.UniqueUUID, false);
+                DestroyItem();
+                return;
             }
 
-            // Set Variables back to a safe value
+            UpdateSlotInfo();
+
+            //EventMessenger.Instance.Raise(new EventUIInventoryItemChanged(Slot.InventoryPanel.Inventory.UniqueUUID, Item.BaseData));
+            // -->EventMessenger.Instance.Raise(new EventUIInventoryItemChanged(Item.BaseData.InventoryUniqueUUID, Item.BaseData));
+
+            // We no longer need this references
+            // Set back to a safe value 
             DraggedItem = null;
             DraggedItemStartSlot = null;
-            _tmpItemStartPosition = TheTransform.position;
-            TheCanvasGroup.blocksRaycasts = true;
+            _tmpItemStartPosition = transform.position;
+
+            ToggleQuantity(true);
+            ToggleDamageBar(true);
+            UpdateQuantity();
+            UpdateDamageBar();
+
+            // --> EventMessenger.Instance.Raise(new EventUIInventoryItemDropedOnSlot(this));
         }
+        #endregion
     }
 }
