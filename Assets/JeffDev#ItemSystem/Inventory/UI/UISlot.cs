@@ -1,4 +1,6 @@
-﻿using FPS.ItemSystem;
+﻿using FPS.EventSystem;
+using FPS.InventorySystem.Events;
+using FPS.ItemSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -128,7 +130,6 @@ namespace FPS.InventorySystem.UI
             {
                 AddUIItem(UIItem.DraggedItem);
                 
-                //if (UIItem.DraggedItem.Item.BaseData.InventoryUUID != InventoryUUID)
                 if(IsCrossInventory)
                 {
                     Debug.Log("EMPTY CROSS PANEL");
@@ -136,7 +137,7 @@ namespace FPS.InventorySystem.UI
                     // Remove item from inventory that its coming from
                     //UIInventoryItem.tmpItemBeingDragged.Item.Inventory.RemoveItemByUUID(UIInventoryItem.tmpItemBeingDragged.Item.BaseData.UniqueUUID, false);
                     //EventMessenger.Instance.Raise(new EventRemoveItemFromInventory(UIInventoryItem.tmpItemBeingDragged.Item.Inventory.UniqueUUID, UIInventoryItem.tmpItemBeingDragged.Item, false));
-                    // --> EventMessenger.Instance.Raise(new EventRemoveItemFromInventory(UIInventoryItem.tmpItemBeingDragged.Item.BaseData.InventoryUniqueUUID, UIInventoryItem.tmpItemBeingDragged.Item, false));
+                    EventMessenger.Instance.Raise(new EventRemoveItemFromInventory(UIItem.DraggedItemStartSlot.InventoryUUID, UIItem.DraggedItem.Item, false));
 
                     // is this right? i am setting the panel id here and removing item bellow? will this afect anything?
                     UIItem.DraggedItem.Item.BaseData.InventoryUUID = InventoryUUID;
@@ -147,12 +148,9 @@ namespace FPS.InventorySystem.UI
 
                     // Add Item to the new inventory
                     //InventoryPanel.Inventory.AddItemNoStack(UIInventoryItem.tmpItemBeingDragged.Item, false);
-                    // --> EventMessenger.Instance.Raise(new EventAddItemToInventory(InventoryPanel.Inventory.UniqueUUID, UIInventoryItem.tmpItemBeingDragged.Item, false, false));
+                    EventMessenger.Instance.Raise(new EventAddItemToInventory(InventoryUUID, UIItem.DraggedItem.Item, false));
 
                     this.ThisUIItem.transform.SetParent(UIItem.DraggedItemStartSlot.transform);
-
-                    // ADDED FOR ACTION BAR
-                    // --> EventMessenger.Instance.Raise(new EventUIInventoryItemAdded(InventoryPanel, UIInventoryItem.tmpItemBeingDragged));
                 }
                 else
                 {
@@ -199,8 +197,6 @@ namespace FPS.InventorySystem.UI
                             {
                                 Debug.Log("STACK WITH DESTROY CROSS PANEL");
                                 // --> EventMessenger.Instance.Raise(new EventUIInventoryItemChanged(InventoryPanel.Inventory.UniqueUUID, InventoryItem.Item.BaseData));
-                                ////ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged(InventoryItem, null));
-                                ////ExecuteEvents.ExecuteHierarchy<IHasChanged>(UIInventoryItem.tmpItemStartSlot.gameObject, null, (x, y) => x.HasChanged(InventoryItem, null));
                             }
                             else
                             {
@@ -208,8 +204,6 @@ namespace FPS.InventorySystem.UI
 
                                 UIItem.DraggedItem.transform.SetParent(UIItem.DraggedItemStartSlot.transform);
                                 // --> EventMessenger.Instance.Raise(new EventUIInventoryItemChanged(InventoryPanel.Inventory.UniqueUUID, InventoryItem.Item.BaseData));
-
-                                ////ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged(InventoryItem, null));
                             }
 
                         }
@@ -221,8 +215,6 @@ namespace FPS.InventorySystem.UI
                             // put it back where it came from
                             UIItem.DraggedItem.transform.SetParent(UIItem.DraggedItemStartSlot.transform);
 
-                            Debug.Log("This item quantity is ["+ (ThisUIItem.Item.BaseData as IStackableData).Quantity + "]");
-                            Debug.Log("Incoming item quantity is [" + (UIItem.DraggedItem.Item.BaseData as IStackableData).Quantity + "]");
                             // update the left (item in this slot) item quantity
                             ThisUIItem.UpdateQuantity();
                             

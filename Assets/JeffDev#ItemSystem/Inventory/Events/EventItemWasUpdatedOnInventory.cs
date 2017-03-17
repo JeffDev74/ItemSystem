@@ -1,10 +1,11 @@
 ﻿using FPS.EventSystem;
 using FPS.ItemSystem;
+using UnityEngine;
 
 namespace FPS.InventorySystem.Events
 {
-    public class EventUpdateInventoryItem : GameEvent
-    {
+	public class EventItemWasUpdatedOnInventory : GameEvent
+	{
         private string _inventoryUUID;
         public string InventoryUUID
         {
@@ -26,7 +27,7 @@ namespace FPS.InventorySystem.Events
             private set { _updateUI = value; }
         }
 
-        public EventUpdateInventoryItem(string inventoryUUID, ICoreData item, bool updateUI = true)
+        public EventItemWasUpdatedOnInventory(string inventoryUUID, ICoreData item, bool updateUI = true)
         {
             this.InventoryUUID = inventoryUUID;
             this.Item = item;

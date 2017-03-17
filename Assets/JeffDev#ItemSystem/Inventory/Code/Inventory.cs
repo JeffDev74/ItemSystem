@@ -199,8 +199,24 @@ namespace FPS.InventorySystem
             {
                 if (InternalItems[i].BaseData.UniqueUUID == uniqueUUID)
                 {
-                    InternalItems[i] = item;
-                    EventSystem.EventMessenger.Instance.Raise(new Events.EventUpdateInventoryItem(InventoryUUID, item));
+                    IStackableData iStackDataInterface = InternalItems[i].BaseData as IStackableData;
+                    if(iStackDataInterface != null)
+                    {
+                        if(iStackDataInterface.DestroyOnUse && iStackDataInterface.Quantity <= 0)
+                        {
+                            RemoveItem(InternalItems[i].BaseData.UniqueUUID, updateUI);
+                        }
+                        else
+                        {
+                            InternalItems[i] = item;
+                            EventSystem.EventMessenger.Instance.Raise(new Events.EventItemWasUpdatedOnInventory(InventoryUUID, item, updateUI));
+                        }
+                    }
+                    else
+                    {
+                        InternalItems[i] = item;
+                        EventSystem.EventMessenger.Instance.Raise(new Events.EventItemWasUpdatedOnInventory(InventoryUUID, item, updateUI));
+                    }
                 }
             }
         }
