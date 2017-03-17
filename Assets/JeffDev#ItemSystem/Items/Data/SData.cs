@@ -23,7 +23,14 @@ namespace FPS.ItemSystem
         private string _uniqueUUID;
         public string UniqueUUID
         {
-            get { return _uniqueUUID; }
+            get
+            {
+                if(string.IsNullOrEmpty(_uniqueUUID) || _uniqueUUID == System.Guid.Empty.ToString())
+                {
+                    _uniqueUUID = System.Guid.NewGuid().ToString();
+                }
+                return _uniqueUUID;
+            }
             set { _uniqueUUID = value; }
         }
 

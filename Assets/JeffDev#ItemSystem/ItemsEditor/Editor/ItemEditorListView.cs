@@ -80,7 +80,7 @@ namespace ItemSystem
                     GUILayout.BeginVertical("Box", GUILayout.MinWidth(100), GUILayout.ExpandWidth(true), GUILayout.MaxWidth(listViewWidth));
 
                     GUI.backgroundColor = defaultBGColor;
-                    if (GUILayout.Button("items[i].BaseNSData.Icon.texture", GUILayout.MinWidth(100), GUILayout.ExpandWidth(true), GUILayout.Height(90), GUILayout.MaxWidth(listViewWidth)))
+                    if (GUILayout.Button(items[i].BaseNSData.Icon.texture, GUILayout.MinWidth(100), GUILayout.ExpandWidth(true), GUILayout.Height(90), GUILayout.MaxWidth(listViewWidth)))
                     {
                         ResetEditor();
                         _selectedItemIndex = i;

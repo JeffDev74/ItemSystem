@@ -20,6 +20,18 @@ namespace FPS
 
         public void AddItem()
         {
+            SetupInventory();
+            EventMessenger.Instance.Raise(new EventAddItemToInventory(inventory_uuid, FactoryItem(), true));
+        }
+
+        public void AddItemToActionBar()
+        {
+            SetupInventory();
+            EventMessenger.Instance.Raise(new EventAddItemToInventory(actionBayInventory_uuid, FactoryItem(), true));
+        }
+
+        private void SetupInventory()
+        {
             IUIPanel mainInventoryPanel = UIManager.Instance.MainInventoryUIPanel;
             UIInventory uiMainInventory = mainInventoryPanel.TheTransform.GetComponent<UIInventory>();
             IInventory mainInventory = InventoryManager.Instance.GetInventoryByUUID(inventory_uuid);
@@ -31,34 +43,11 @@ namespace FPS
             IInventory actionBarInventory = InventoryManager.Instance.GetInventoryByUUID(actionBayInventory_uuid);
             uiActionBarInventory.InventoryUUID = actionBarInventory.InventoryUUID;
             uiActionBarInventory.SetupSlots();
-
-
-            EventMessenger.Instance.Raise(new EventAddItemToInventory(inventory_uuid, FactoryItem(), true));
         }
 
         public ICoreData FactoryItem()
         {
-            // Resource item
-            ICoreData testItem = new ResourceItem();
-            testItem.BaseData.ID = 1;
-            testItem.BaseData.UniqueUUID = System.Guid.NewGuid().ToString();
-            testItem.BaseData.Name = "Wood";
-            IStackableData iStackData = testItem as IStackableData;
-            if(iStackData != null)
-            {
-                iStackData.Quantity = 777;
-            }
-
-            testItem.BaseData.Description = "Wood Resource";
-          
-            testItem.BaseNSData = new ResourceNSData();
-            testItem.BaseNSData.Icon = itemIcon;
-            return testItem as ICoreData;
-        }
-
-        public interface WeaponAllData : ISData, IStackableData
-        {
-
+            return SODatabaseManager.Instance.ResourceSODBModel.GetById<BaseItem>(1);
         }
     }
 }
