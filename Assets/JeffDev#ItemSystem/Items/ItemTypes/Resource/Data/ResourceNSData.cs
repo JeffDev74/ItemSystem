@@ -2,7 +2,8 @@
 
 namespace FPS.ItemSystem
 {
-	public class ResourceNSData : NSData
+    [System.Serializable]
+    public class ResourceNSData : NSData
 	{
 
 	}

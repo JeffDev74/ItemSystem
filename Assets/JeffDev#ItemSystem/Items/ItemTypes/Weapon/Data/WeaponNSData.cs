@@ -2,7 +2,8 @@
 
 namespace FPS.ItemSystem
 {
-	public class WeaponNSData : NSData
+    [System.Serializable]
+    public class WeaponNSData : NSData
     {
 
 	}
