@@ -192,9 +192,10 @@ namespace FPS.InventorySystem.UI
 
                             //InventoryItem.Item.BaseData.Quantity = stackResult.leftItem.BaseData.Quantity;
                             ThisUIItem.UpdateQuantity();
+                            UIItem.DraggedItem.UpdateQuantity();
 
                             //if (UIItem.DraggedItem.Item.BaseData.InventoryUUID != InventoryPanel.Inventory.UniqueUUID)
-                            if(IsCrossInventory)
+                            if (IsCrossInventory)
                             {
                                 Debug.Log("STACK WITH DESTROY CROSS PANEL");
                                 // --> EventMessenger.Instance.Raise(new EventUIInventoryItemChanged(InventoryPanel.Inventory.UniqueUUID, InventoryItem.Item.BaseData));
@@ -214,14 +215,17 @@ namespace FPS.InventorySystem.UI
                         }
                         else
                         {
-                            //Debug.Log("ITEMS WERE STACKED BOTH ITEMS STILL HAVE QUANTITY");
+                            Debug.Log("ITEMS WERE STACKED BOTH ITEMS STILL HAVE QUANTITY");
                             // right item (dragged item) exchanged the quantities but 
                             // it still have quantity
                             // put it back where it came from
                             UIItem.DraggedItem.transform.SetParent(UIItem.DraggedItemStartSlot.transform);
 
+                            Debug.Log("This item quantity is ["+ (ThisUIItem.Item.BaseData as IStackableData).Quantity + "]");
+                            Debug.Log("Incoming item quantity is [" + (UIItem.DraggedItem.Item.BaseData as IStackableData).Quantity + "]");
                             // update the left (item in this slot) item quantity
                             ThisUIItem.UpdateQuantity();
+                            
                             // update right item (dragged item) quantity
                             UIItem.DraggedItem.UpdateQuantity();
 

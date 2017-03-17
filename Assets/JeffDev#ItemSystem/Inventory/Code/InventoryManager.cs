@@ -60,7 +60,7 @@ namespace FPS.InventorySystem
         {
             if (GetInventoryByUUID(inv.InventoryUUID) == null)
             {
-                Debug.Log("Adding inventory [" + inv.InventoryUUID + "] to the inventory manager");
+                //Debug.Log("Adding inventory [" + inv.InventoryUUID + "] to the inventory manager");
                 Inventories.Add(inv);
             }
         }
@@ -86,7 +86,7 @@ namespace FPS.InventorySystem
                 }
             }
 
-            Debug.LogWarning("The inventory with unique uuid [" + inventoryUniqueUUID + "] was not found.", transform);
+            //Debug.LogWarning("The inventory with unique uuid [" + inventoryUniqueUUID + "] was not found.", transform);
 
             return null;
         }

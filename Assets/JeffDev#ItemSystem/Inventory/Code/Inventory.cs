@@ -152,7 +152,7 @@ namespace FPS.InventorySystem
                 {
                     item.Inventory = this;
                     item.BaseData.InventoryUUID = InventoryUUID;
-                    Debug.Log("[" + TheTransform.name + "] Adding item to inventory [" + InventoryUUID + "]");
+                    //Debug.Log("[" + TheTransform.name + "] Adding item to inventory [" + InventoryUUID + "]");
                     InternalItems.Add(item);
                     EventSystem.EventMessenger.Instance.Raise(new Events.EventItemWasAddedToInventory(InventoryUUID, item, updateUI));
                     

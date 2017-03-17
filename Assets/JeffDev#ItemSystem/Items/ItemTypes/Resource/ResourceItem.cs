@@ -112,10 +112,79 @@ namespace FPS.ItemSystem
             set { (BaseData as IStackableData).StackableMax = value; }
         }
 
-        public StackResult Stack(BaseItem rightItem)
+        public StackResult Stack(BaseItem itemToStack)
         {
-            // Istackabledata
-            return null;
+
+            
+            // NOTE:
+            // By returning null in this method
+            // a switch will happen on UISlot class
+
+            itemToStack = itemToStack as ResourceItem;
+            IStackableData iStackDataInterface = itemToStack.BaseData as IStackableData;
+            if(iStackDataInterface == null)
+            {
+                return null;
+            }
+
+            if (itemToStack == null)
+            {
+                return null;
+            }
+
+            StackResult result = null;
+
+            if (BaseData.Type == itemToStack.BaseData.Type)
+            {
+                if (IsStackable && iStackDataInterface.IsStackable)
+                {
+                    // check if the item in the left has available space to stack
+                    if (StackableMax > Quantity)
+                    {
+                        result = new StackResult();
+
+                        // how much can I stack
+                        int canStackThisMuch = StackableMax - Quantity;
+
+                        // now check if the item that was stacked on top 
+                        // of the left item still have quantity
+                        if (iStackDataInterface.Quantity > canStackThisMuch)
+                        {
+                            // the item has more than I can stack
+                            Quantity += canStackThisMuch;
+                            iStackDataInterface.Quantity -= canStackThisMuch;
+
+                            //result.leftItem = left;
+                            result.item = itemToStack;
+                        }
+                        else
+                        {
+                            // The item should be deleted will stack all its quantity
+                            Quantity += iStackDataInterface.Quantity;
+                            iStackDataInterface.Quantity = -1;
+                            //result.leftItem = left;
+                            result.item = itemToStack;
+                        }
+                        Debug.Log("The items where stacked.");
+                        return result;
+                    }
+                    else
+                    {
+                        Debug.Log("The item in the left is full");
+                        return null;
+                    }
+                }
+                else
+                {
+                    Debug.Log("one of the items is not stackable.");
+                    return null;
+                }
+            }
+            else
+            {
+                Debug.Log("The item type is not the same");
+                return null;
+            }
         }
 
         #endregion IStackable Interface Implementation
