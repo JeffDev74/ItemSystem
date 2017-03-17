@@ -28,7 +28,7 @@ namespace FPS
 
         private void OnItemWasRemovedEvent(EventItemWasRemovedToInventory e)
         {
-            //Debug.Log("The item [" + e.Item.BaseData.Name + "] was removed from inventory [" + e.InventoryUUID + "]");
+            Debug.LogWarning("The item [" + e.Item.BaseData.Name + "] was removed from inventory [" + e.InventoryUUID + "]");
         }
 
         private void OnItemWasUpdatedEvent(EventItemWasUpdatedOnInventory e)

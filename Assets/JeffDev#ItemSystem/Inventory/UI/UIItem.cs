@@ -271,6 +271,8 @@ namespace FPS.InventorySystem.UI
 
         public void UpdateSlotInfo()
         {
+            if (Item == null) return;
+            Debug.Log(Item.BaseData.Name);
             Debug.Log(Item);
             Debug.Log(Item.BaseData);
             Debug.Log(Item.BaseNSData);

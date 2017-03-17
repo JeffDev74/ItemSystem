@@ -271,27 +271,16 @@ namespace FPS.InventorySystem.UI
                 Debug.Log("SWAP NON STACKABLE ITEM CROSS PANEL");
 
                 // Remove dragged item from its inventory
-                ////EventMessenger.Instance.Raise(new EventRemoveItemFromInventory(UIItem.DraggedItemStartSlot.InventoryUUID, UIItem.DraggedItem.Item, false));
-
-                UIItem.DraggedItem.Item.BaseData.InventoryUUID = InventoryUUID;
-
-                ThisUIItem.Item.Inventory = UIItem.DraggedItem.Item.Inventory;
+                EventMessenger.Instance.Raise(new EventRemoveItemFromInventory(UIItem.DraggedItemStartSlot.InventoryUUID, UIItem.DraggedItem.Item, false));
 
                 // Add this item to the dragged item inventory
-                ////EventMessenger.Instance.Raise(new EventAddItemToInventory(UIItem.DraggedItemStartSlot.InventoryUUID, ThisUIItem.Item, false));
+                EventMessenger.Instance.Raise(new EventAddItemToInventory(UIItem.DraggedItemStartSlot.InventoryUUID, ThisUIItem.Item, false));
 
                 // Remove this item from its inventory
-                ////EventMessenger.Instance.Raise(new EventRemoveItemFromInventory(InventoryUUID, ThisUIItem.Item, false));
-
-                // I am not sure if we need to update the item data inventory id here
-                ThisUIItem.Item.BaseData.InventoryUUID = UIItem.DraggedItemStartSlot.InventoryUUID;
-
-                // IMPORTANT SET INVENTORY
-                // --> UIItem.DraggedItemd.Item.Inventory = InventoryPanel.Inventory;
-                //UIItem.DraggedItemStartSlot.InventoryUUID = InventoryUUID;
+                EventMessenger.Instance.Raise(new EventRemoveItemFromInventory(InventoryUUID, ThisUIItem.Item, false));
 
                 // Add the dragged item to this inventory
-                ////EventMessenger.Instance.Raise(new EventAddItemToInventory(InventoryUUID, UIItem.DraggedItem.Item, false));
+                EventMessenger.Instance.Raise(new EventAddItemToInventory(InventoryUUID, UIItem.DraggedItem.Item, false));
 
                 // Set this item to the dragged item slot
                 ThisUIItem.transform.SetParent(UIItem.DraggedItemStartSlot.transform);
@@ -299,17 +288,11 @@ namespace FPS.InventorySystem.UI
             }
             else
             {
-                //Debug.Log("SWAP NON STACKABLE ITEM SAME PANEL");
+                Debug.Log("SWAP NON STACKABLE ITEM SAME PANEL");
 
                 // Set this item to the dragged item slot
                 ThisUIItem.transform.SetParent(UIItem.DraggedItemStartSlot.transform);
-
-                ////ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged(InventoryItem, null));
             }
-
-            //EventMessenger.Instance.Raise(new EventUIInventoryItemChanged(InventoryPanel.Inventory.UniqueUUID, InventoryItem.Item.BaseData));
-            //EventMessenger.Instance.Raise(new EventUIInventoryItemChanged(UIInventoryItem.tmpItemBeingDragged.Item.Inventory.UniqueUUID, UIInventoryItem.tmpItemBeingDragged.Item.BaseData));
         }
-
     }
 }
