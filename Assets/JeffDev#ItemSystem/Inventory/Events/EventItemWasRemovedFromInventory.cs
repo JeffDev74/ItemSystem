@@ -3,7 +3,7 @@ using FPS.ItemSystem;
 
 namespace FPS.InventorySystem.Events
 {
-	public class EventItemWasRemovedToInventory : GameEvent
+	public class EventItemWasRemovedFromInventory : GameEvent
 	{
         private string _inventoryUUID;
         public string InventoryUUID
@@ -26,7 +26,7 @@ namespace FPS.InventorySystem.Events
             private set { _updateUI = value; }
         }
 
-        public EventItemWasRemovedToInventory(string inventoryUUID, ICoreData item, bool updateUI = true)
+        public EventItemWasRemovedFromInventory(string inventoryUUID, ICoreData item, bool updateUI = true)
         {
             this.InventoryUUID = inventoryUUID;
             this.Item = item;

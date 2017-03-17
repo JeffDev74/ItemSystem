@@ -105,7 +105,7 @@ namespace FPS.InventorySystem
                 }
                 else
                 {
-                    RemoveItem(e.Item, true);
+                    RemoveItem(e.Item, e.UpdateUI);
                 }
             }
         }
@@ -152,7 +152,6 @@ namespace FPS.InventorySystem
                 {
                     item.Inventory = this;
                     item.BaseData.InventoryUUID = InventoryUUID;
-                    //Debug.Log("[" + TheTransform.name + "] Adding item to inventory [" + InventoryUUID + "]");
                     InternalItems.Add(item);
                     EventSystem.EventMessenger.Instance.Raise(new Events.EventItemWasAddedToInventory(InventoryUUID, item, updateUI));
                     
@@ -187,7 +186,7 @@ namespace FPS.InventorySystem
                 if (item.BaseData.UniqueUUID == uniqueUUID)
                 {
                     InternalItems.Remove(item);
-                    EventSystem.EventMessenger.Instance.Raise(new Events.EventItemWasRemovedToInventory(InventoryUUID, item, updateUI));
+                    EventSystem.EventMessenger.Instance.Raise(new Events.EventItemWasRemovedFromInventory(InventoryUUID, item, updateUI));
                 }
             }
             #endregion Foreach Version

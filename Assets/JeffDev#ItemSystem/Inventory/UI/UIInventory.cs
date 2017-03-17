@@ -113,13 +113,13 @@ namespace FPS.InventorySystem.UI
         protected void OnEnable()
         {
             EventMessenger.Instance.AddListner<EventItemWasAddedToInventory>(OnItemAddedToInventory);
-            EventMessenger.Instance.AddListner<EventItemWasRemovedToInventory>(OnItemRemovedToInventory);
+            EventMessenger.Instance.AddListner<EventItemWasRemovedFromInventory>(OnItemRemovedToInventory);
         }
 
         protected void OnDisable()
         {
             EventMessenger.Instance.RemoveListner<EventItemWasAddedToInventory>(OnItemAddedToInventory);
-            EventMessenger.Instance.RemoveListner<EventItemWasRemovedToInventory>(OnItemRemovedToInventory);
+            EventMessenger.Instance.RemoveListner<EventItemWasRemovedFromInventory>(OnItemRemovedToInventory);
         }
 
         protected void Start()
@@ -155,7 +155,7 @@ namespace FPS.InventorySystem.UI
             }
         }
 
-        private void OnItemRemovedToInventory(EventItemWasRemovedToInventory e)
+        private void OnItemRemovedToInventory(EventItemWasRemovedFromInventory e)
         {
             if (e.UpdateUI == false)
             {

@@ -1,4 +1,6 @@
-﻿using FPS.ItemSystem;
+﻿using FPS.EventSystem;
+using FPS.InventorySystem.Events;
+using FPS.ItemSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -271,12 +273,6 @@ namespace FPS.InventorySystem.UI
 
         public void UpdateSlotInfo()
         {
-            if (Item == null) return;
-            Debug.Log(Item.BaseData.Name);
-            Debug.Log(Item);
-            Debug.Log(Item.BaseData);
-            Debug.Log(Item.BaseNSData);
-
             Item.BaseData.SlotID = Slot.ID;
             Item.BaseNSData.Slot = Slot;
             Item.BaseData.InventoryUUID = Slot.InventoryUUID;
@@ -288,18 +284,9 @@ namespace FPS.InventorySystem.UI
             DraggedItem = this;
             _tmpItemStartPosition = transform.position;
 
-            //// Set the tmpStart slot to our slot;
             DraggedItemStartSlot = Slot;
 
-            //// ATTATCH THE SlotItemContainer to the MAIN-UI (UIManager)
-            //Canvas c = Slot.InventoryPanel.GetComponentInParent<UIManager>();
-
-            //// Make the item chield of the main canvas to avoid 
-            //// the icon override (slot under another) when dragging the item
-            //if (uiManager != null)
-            //{
-            transform.SetParent(MainCanvas.transform);// uiManager.transform);
-            //}
+            transform.SetParent(MainCanvas.transform);
 
             TheCanvasGroup.blocksRaycasts = false;
         }
@@ -309,7 +296,6 @@ namespace FPS.InventorySystem.UI
         public void OnDrag(PointerEventData eventData)
         {
             transform.position = Input.mousePosition;
-
         }
         #endregion
 
@@ -323,41 +309,28 @@ namespace FPS.InventorySystem.UI
             if (transform.parent == DraggedItemStartSlot)
             {
                 transform.position = _tmpItemStartPosition;
-                Debug.Log("slot changed setting position");
             }
 
             TheCanvasGroup.blocksRaycasts = true;
 
             // If The item is dragged outside a valid slot remove it
-            //UIInventorySlot _tmpSlot = transform.parent.GetComponent<UIInventorySlot>();
             if (Slot == null)
             {
-                Debug.Log("DRAGGED OUTSIDE INVENTORY");
+                //Debug.Log("DRAGGED OUTSIDE INVENTORY");
 
                 // Put the item back to its place
                 transform.SetParent(DraggedItemStartSlot.transform);
 
-                //tmpItemStartSlot.InventoryPanel.Inventory.RemoveItem(Item, false);
-                // --> DraggedItemStartSlot.InventoryPanel.Inventory.RemoveItemByUUID(Item.BaseData.UniqueUUID, false);
-
+                EventMessenger.Instance.Raise(new EventRemoveItemFromInventory(Item.BaseData.InventoryUUID, Item, false));
+                
                 // If the item was stacked the slot will be null as well
                 // so we check if the quantity is greater then 0 to generate drop
                 // Trigger event to generate inventory drop
                 if ((Item.BaseData as IStackableData).Quantity > 0)
                 {
+                    Debug.LogWarning("Should send event to generate a drop");
                     // --> EventMessenger.Instance.Raise(new EventInventoryGenerateDrop(DraggedItemStartSlot.InventoryPanel.Inventory, Item));
                 }
-
-                // The action bar listen for this event
-                // If the current active item in the action bar
-                // is this item it will be disabled
-                // Also the UIMain panel listen for this event
-                // to trigger the event to remove the item from the inventory
-                //EventMessenger.Instance.Raise(new EventUIInventoryItemRemove(tmpItemStartSlot.InventoryPanel, this));
-
-                // Event used by crafting system to recalculate items if inventory changes.
-                // --> EventMessenger.Instance.Raise(new EventUIInventoryChanged(DraggedItemStartSlot.InventoryPanel.Inventory));
-
 
                 DestroyItem();
 
@@ -366,13 +339,15 @@ namespace FPS.InventorySystem.UI
 
             if ((Item.BaseData as IStackableData).Quantity <= 0)
             {
-                Debug.Log("ITEM HAVE NO QUANTITY REMOVING");
+                //Debug.Log("ITEM HAVE NO QUANTITY REMOVING");
+
                 IInventory inventory = InventoryManager.Instance.GetInventoryByUUID(DraggedItemStartSlot.InventoryUUID);
                 if(inventory != null)
                 {
                     inventory.RemoveItem(Item.BaseData.UniqueUUID, true);
                 }
-                //DraggedItemStartSlot.InventoryPanel.Inventory.RemoveItemByUUID(Item.BaseData.UniqueUUID, false);
+
+                EventMessenger.Instance.Raise(new EventRemoveItemFromInventory(Item.BaseData.InventoryUUID, Item, false));
                 DestroyItem();
                 return;
             }

@@ -10,14 +10,14 @@ namespace FPS
         private void OnEnable()
         {
             EventMessenger.Instance.AddListner<EventItemWasAddedToInventory>(OnItemWasAddedEvent);
-            EventMessenger.Instance.AddListner<EventItemWasRemovedToInventory>(OnItemWasRemovedEvent);
+            EventMessenger.Instance.AddListner<EventItemWasRemovedFromInventory>(OnItemWasRemovedEvent);
             EventMessenger.Instance.AddListner<EventItemWasUpdatedOnInventory>(OnItemWasUpdatedEvent); 
         }
 
         private void OnDisable()
         {
             EventMessenger.Instance.RemoveListner<EventItemWasAddedToInventory>(OnItemWasAddedEvent);
-            EventMessenger.Instance.RemoveListner<EventItemWasRemovedToInventory>(OnItemWasRemovedEvent);
+            EventMessenger.Instance.RemoveListner<EventItemWasRemovedFromInventory>(OnItemWasRemovedEvent);
             EventMessenger.Instance.RemoveListner<EventItemWasUpdatedOnInventory>(OnItemWasUpdatedEvent);
         }
 
@@ -26,9 +26,9 @@ namespace FPS
             //Debug.Log("The item ["+e.Item.BaseData.Name+"] was added from inventory ["+e.InventoryUUID+"]");
         }
 
-        private void OnItemWasRemovedEvent(EventItemWasRemovedToInventory e)
+        private void OnItemWasRemovedEvent(EventItemWasRemovedFromInventory e)
         {
-            Debug.LogWarning("The item [" + e.Item.BaseData.Name + "] was removed from inventory [" + e.InventoryUUID + "]");
+            //Debug.LogWarning("The item [" + e.Item.BaseData.Name + "] was removed from inventory [" + e.InventoryUUID + "]");
         }
 
         private void OnItemWasUpdatedEvent(EventItemWasUpdatedOnInventory e)

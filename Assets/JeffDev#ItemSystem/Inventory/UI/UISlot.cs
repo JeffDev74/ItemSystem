@@ -141,7 +141,7 @@ namespace FPS.InventorySystem.UI
 
                     // IMPORTANT SET THE INVENTORY
                     // IMPORTANT SET THE INVENTORY
-                    //this.ThisUIItem.Item.Inventory = ThisUIItem.Item.Inventory;//  InventoryPanel.Inventory;
+                    //this.ThisUIItem.Item.Inventory = ThisUIItem.Item.Inventory;
 
                     // Add Item to the new inventory
                     EventMessenger.Instance.Raise(new EventAddItemToInventory(InventoryUUID, UIItem.DraggedItem.Item, false));
@@ -153,7 +153,7 @@ namespace FPS.InventorySystem.UI
                     Debug.Log("EMPTY SAME PANEL");
                     // IMPORTANT SET THE INVENTORY
                     // IMPORTANT SET THE INVENTORY
-                    //UIItem.DraggedItem.Item.Inventory = ThisUIItem.Item.Inventory;// InventoryPanel.Inventory;
+                    //UIItem.DraggedItem.Item.Inventory = ThisUIItem.Item.Inventory;
                     this.ThisUIItem.transform.SetParent(UIItem.DraggedItemStartSlot.transform);
                 }
             }
@@ -161,9 +161,6 @@ namespace FPS.InventorySystem.UI
             {
                 // If the item in the slot is stackable check here too and dont return to original position
                 // if we have an item in the slot where this slot is being dragged return to original position
-
-
-                //Debug.Log("The item is being dropped on top or another item");
 
                 // Set the start slot ItemContainer to this slot item container
                 UIItem.DraggedItemStartSlot.ThisUIItem = this.ThisUIItem;
@@ -184,7 +181,6 @@ namespace FPS.InventorySystem.UI
                             // Set the slot ItemContainer that the item is being dragged from to null
                             UIItem.DraggedItemStartSlot.ThisUIItem = ThisUIItem;
 
-                            //InventoryItem.Item.BaseData.Quantity = stackResult.leftItem.BaseData.Quantity;
                             ThisUIItem.UpdateQuantity();
                             UIItem.DraggedItem.UpdateQuantity();
 
@@ -206,8 +202,7 @@ namespace FPS.InventorySystem.UI
                         {
                             Debug.Log("ITEMS WERE STACKED BOTH ITEMS STILL HAVE QUANTITY");
                             // right item (dragged item) exchanged the quantities but 
-                            // it still have quantity
-                            // put it back where it came from
+                            // it still have quantity put it back where it came from
                             UIItem.DraggedItem.transform.SetParent(UIItem.DraggedItemStartSlot.transform);
 
                             // update the left (item in this slot) item quantity
@@ -215,14 +210,7 @@ namespace FPS.InventorySystem.UI
                             
                             // update right item (dragged item) quantity
                             UIItem.DraggedItem.UpdateQuantity();
-
-
-                            //EventMessenger.Instance.Raise(new EventUIInventoryItemChanged(InventoryItem.Slot.InventoryPanel.Inventory.UniqueUUID, InventoryItem.Item.BaseData));
                         }
-
-                        // Since the item being dragged may be destroyed se send an event
-                        // on dropped on slot with the item already in the slot
-                        // EventMessenger.Instance.Raise(new EventUIInventoryItemDropedOnSlot(UIInventoryItem.tmpItemBeingDragged));
                     }
                     else
                     {
@@ -248,16 +236,6 @@ namespace FPS.InventorySystem.UI
                     UIItem.DraggedItemStartSlot.ThisUIItem.UpdateSlotInfo();
                 }
             }
-
-            //// There is a change reset the item container and item
-            //InventoryItem = null;
-            //UIInventoryItemTransform = null;
-
-            // Event used by the crafting system to recalculate items if inventory changes
-            // --> EventMessenger.Instance.Raise(new EventUIInventoryChanged(InventoryPanel.Inventory));
-            //EventMessenger.Instance.Raise(new EventUIInventoryItemChanged(InventoryPanel.Inventory.UniqueUUID, InventoryItem.Item.BaseData));
-
-            //ResetDropVariables();
         }
         #endregion
 
@@ -288,7 +266,7 @@ namespace FPS.InventorySystem.UI
             }
             else
             {
-                Debug.Log("SWAP NON STACKABLE ITEM SAME PANEL");
+                //Debug.Log("SWAP NON STACKABLE ITEM SAME PANEL");
 
                 // Set this item to the dragged item slot
                 ThisUIItem.transform.SetParent(UIItem.DraggedItemStartSlot.transform);
