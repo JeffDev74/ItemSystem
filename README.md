@@ -23,7 +23,7 @@ If you have a minute please stop by and say hello at:
 
 7 - https://youtu.be/A3dKA6Ky9Bc
 
-8 - https://youtu.be/AVzbZS_3EuA
+8 - https://youtu.be/AVzbZS_3EuA (inventory starts around 3:00 on this video)
 
 ## Features:
 | Feature       | State       |
