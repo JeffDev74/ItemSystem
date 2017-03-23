@@ -35,7 +35,7 @@ If you have a minute please stop by and say hello at:
 | Event System  | done        |
 | Sqlite DB     | done        |
 | Invenotry UI  | in-progress |
-| Custom Editor |             |
+| Custom Editor | in-progress |
 
 ## License
 
