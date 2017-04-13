@@ -1,10 +1,7 @@
-﻿using FPS.InventorySystem;
-using FPS.ItemSystem.CustomProperty;
-using ItemSystem;
+﻿using FPS.ItemSystem.CustomProperty;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
-using System;
 
 namespace FPS.ItemSystem
 {

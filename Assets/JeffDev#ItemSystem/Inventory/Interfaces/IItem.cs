@@ -1,5 +1,4 @@
-﻿using FPS.InventorySystem;
-using FPS.ItemSystem;
+﻿using FPS.ItemSystem;
 using UnityEngine;
 
 namespace FPS

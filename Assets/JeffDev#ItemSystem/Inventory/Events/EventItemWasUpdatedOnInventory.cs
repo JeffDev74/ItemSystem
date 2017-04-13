@@ -1,6 +1,5 @@
 ﻿using FPS.EventSystem;
 using FPS.ItemSystem;
-using UnityEngine;
 
 namespace FPS.InventorySystem.Events
 {

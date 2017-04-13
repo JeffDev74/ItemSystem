@@ -17,7 +17,6 @@ namespace FPS.InventorySystem
         void RemoveItem(string uniqueUUID, bool updateUI);
         void UpdateItem(string uniqueUUID, ICoreData item, bool updateUI);
         void RemoveAllItems(bool updateUI = true);
-
         bool CanAddItem { get; }
     }
 }

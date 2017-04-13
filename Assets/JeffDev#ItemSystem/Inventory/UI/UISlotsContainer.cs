@@ -69,8 +69,6 @@ namespace FPS.InventorySystem.UI
 
         public void RemoveItemByUUID(string itemUUID)
         {
-            Debug.Log("Will remove item [" + itemUUID + "]");
-
             foreach (UIItem invItem in InventoryItems)
             {
                 if (invItem.IsActive)

@@ -1,7 +1,5 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using FPS.EventSystem;
-
 using FPS.UI;
 using FPS.InventorySystem.Events;
 using FPS.ItemSystem;

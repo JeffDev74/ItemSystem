@@ -1,5 +1,4 @@
-﻿using System;
-using FPS.InventorySystem;
+﻿using FPS.InventorySystem;
 using UnityEngine;
 using ItemSystem;
 
