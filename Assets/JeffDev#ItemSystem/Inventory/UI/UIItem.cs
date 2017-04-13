@@ -341,13 +341,8 @@ namespace FPS.InventorySystem.UI
             {
                 //Debug.Log("ITEM HAVE NO QUANTITY REMOVING");
 
-                IInventory inventory = InventoryManager.Instance.GetInventoryByUUID(DraggedItemStartSlot.InventoryUUID);
-                if(inventory != null)
-                {
-                    inventory.RemoveItem(Item.BaseData.UniqueUUID, true);
-                }
-
-                EventMessenger.Instance.Raise(new EventRemoveItemFromInventory(Item.BaseData.InventoryUUID, Item, false));
+                EventMessenger.Instance.Raise(new EventRemoveItemFromInventory(DraggedItemStartSlot.InventoryUUID, Item, false));
+                
                 DestroyItem();
                 return;
             }
